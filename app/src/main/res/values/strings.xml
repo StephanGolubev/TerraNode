@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TerraNode</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="full_name">FULL NAME</string>
+    <string name="welcome">Welcome!</string>
+    <string name="itn_group_is_a_commercial_platform_that_is_engaged_in_the_formation_and_production_of_products_in_the_field_of_trading">ITN Group is a commercial platform that is engaged in the formation and production of products in the field of trading</string>
+    <string name="email">EMAIL</string>
+    <string name="password">PASSWORD</string>
+    <string name="create">Create</string>
+    <string name="sponsor_id">SPONSOR ID</string>
+</resources>
