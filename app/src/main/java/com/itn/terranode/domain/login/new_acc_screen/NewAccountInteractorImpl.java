@@ -1,7 +1,6 @@
 package com.itn.terranode.domain.login.new_acc_screen;
 
 import com.itn.terranode.data.network.NetworkRepository;
-import com.itn.terranode.data.network.dtos.LoginDTO;
 import com.itn.terranode.data.network.dtos.NewAccountDTO;
 
 import javax.inject.Inject;
@@ -22,7 +21,7 @@ public class NewAccountInteractorImpl implements NewAccountInteractor {
 
 
     @Override
-    public Maybe<Response> createNewAccount(String fullname, String email, String password, String sponsor) {
+    public Maybe<Response<Object>> createNewAccount(String fullname, String email, String password, String sponsor) {
         return networkRepository.createNewAccount(new NewAccountDTO(fullname, email, password, sponsor))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

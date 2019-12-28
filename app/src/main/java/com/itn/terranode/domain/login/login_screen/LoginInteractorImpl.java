@@ -21,7 +21,7 @@ public class LoginInteractorImpl implements LoginInteractor {
 
 
     @Override
-    public Maybe<Response> login(String email, String password) {
+    public Maybe<Response<Object>> login(String email, String password) {
         return networkRepository.login(new LoginDTO(email, password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

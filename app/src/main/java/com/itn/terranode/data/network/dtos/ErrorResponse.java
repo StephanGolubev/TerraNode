@@ -2,7 +2,7 @@ package com.itn.terranode.data.network.dtos;
 
 import com.google.gson.annotations.SerializedName;
 
-class ErrorResponse {
+public class ErrorResponse {
 
     @SerializedName("code")
     private String code;

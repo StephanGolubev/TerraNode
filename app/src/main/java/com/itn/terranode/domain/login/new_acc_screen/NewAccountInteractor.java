@@ -5,5 +5,5 @@ import retrofit2.Response;
 
 public interface NewAccountInteractor {
 
-    Maybe<Response> createNewAccount(String fullname, String email, String password, String sponsor);
+    Maybe<Response<Object>> createNewAccount(String fullname, String email, String password, String sponsor);
 }

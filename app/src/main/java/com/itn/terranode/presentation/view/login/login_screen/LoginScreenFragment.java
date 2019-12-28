@@ -1,6 +1,11 @@
 package com.itn.terranode.presentation.view.login.login_screen;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +40,17 @@ public class LoginScreenFragment extends MvpAppCompatFragment implements LoginSc
     @InjectPresenter
     LoginPresenter presenter;
 
-    Unbinder unbinder;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, view);
+        SpannableString s = new SpannableString(getResources().getString(R.string.new_here_create_an_account));
+        s.setSpan(new StyleSpan(Typeface.BOLD), 10, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new UnderlineSpan(), 10, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        newAccountTextView.setText(s);
         return view;
     }
 

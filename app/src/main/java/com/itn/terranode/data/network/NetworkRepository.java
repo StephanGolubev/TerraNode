@@ -13,14 +13,14 @@ import retrofit2.http.POST;
 public interface NetworkRepository {
 
     @POST("/api/v1/register")
-    Maybe<Response> createNewAccount(@Body NewAccountDTO gatewayAuthorizeRequest);
+    Maybe<Response<Object>> createNewAccount(@Body NewAccountDTO gatewayAuthorizeRequest);
 
     @POST("/api/v1/login")
-    Maybe<Response> login(@Body LoginDTO gatewayAuthorizeRequest);
+    Maybe<Response<Object>> login(@Body LoginDTO gatewayAuthorizeRequest);
 
-    @POST("/api/v1/logout")
-    @Headers("content-type: application/json")
-    Maybe<Response> login(@Header("Authorization") String authorization, @Body LoginDTO gatewayAuthorizeRequest);
+//    @POST("/api/v1/logout")
+//    @Headers("content-type: application/json")
+//    Maybe<Response<Object>> login(@Header("Authorization") String authorization, @Body LoginDTO gatewayAuthorizeRequest);
 
 
 }

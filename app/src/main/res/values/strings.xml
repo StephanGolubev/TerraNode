@@ -8,4 +8,7 @@
     <string name="password">PASSWORD</string>
     <string name="create">Create</string>
     <string name="sponsor_id">SPONSOR ID</string>
+    <string name="sign_in">Sign in</string>
+    <string name="new_here_create_an_account">New here? Create an account</string>
+    <string name="already_have_an_account_log_in">Already have an account? Log in</string>
 </resources>

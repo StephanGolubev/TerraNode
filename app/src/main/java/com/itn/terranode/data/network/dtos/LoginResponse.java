@@ -10,4 +10,7 @@ public class LoginResponse {
     @SerializedName("error")
     private ErrorResponse error;
 
+    @SerializedName("data")
+    private String data;
+
 }

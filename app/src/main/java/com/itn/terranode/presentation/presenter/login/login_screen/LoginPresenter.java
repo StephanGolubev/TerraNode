@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
+import okhttp3.ResponseBody;
 
 @InjectViewState
 public class LoginPresenter extends MvpPresenter<LoginScreenView> {
@@ -27,8 +28,19 @@ public class LoginPresenter extends MvpPresenter<LoginScreenView> {
         compositeDisposable.add(
                 interactor
                         .login(email, password)
-                        .subscribe(loginResponse -> {
-                                    loginResponse.isSuccessful();
+                        .subscribe(response -> {
+                                    switch (response.code()){
+                                        case 400:{
+                                            ResponseBody responseBody = response.errorBody();
+                                            break;
+                                        }
+                                        case 200:{
+                                            break;
+                                        }
+                                        default:{
+
+                                        }
+                                    }
                                 },
                                 throwable -> {
                                     showMessage(throwable.getMessage());

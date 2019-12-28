@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
+import okhttp3.ResponseBody;
 
 @InjectViewState
 public class NewAccountPresenter extends MvpPresenter<NewAccountView> {
@@ -25,7 +26,30 @@ public class NewAccountPresenter extends MvpPresenter<NewAccountView> {
 
     public void createNewAccount(String fullname, String email, String password, String sponsor) {
         compositeDisposable.add(interactor.createNewAccount(fullname, email, password, sponsor)
-                .subscribe()
+                .subscribe(response -> {
+                            switch (response.code()){
+                                case 400:{
+                                    ResponseBody responseBody = response.errorBody();
+                                    break;
+                                }
+                                case 200:{
+                                    break;
+                                }
+                                default:{
+
+                                }
+                            }
+                        },
+                        throwable -> {
+                            showMessage(throwable.getMessage());
+                        },
+                        () -> {
+                            showMessage("Try to create account later");
+                        })
         );
+    }
+
+    private void showMessage(String message) {
+        getViewState().showToast(message);
     }
 }

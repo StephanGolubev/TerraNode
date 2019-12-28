@@ -5,5 +5,5 @@ import retrofit2.Response;
 
 public interface LoginInteractor {
 
-    Maybe<Response> login(String email, String password);
+    Maybe<Response<Object>> login(String email, String password);
 }
