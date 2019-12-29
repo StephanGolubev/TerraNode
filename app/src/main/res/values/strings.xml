@@ -21,4 +21,7 @@
     <string name="nod_wallet">Nod wallet</string>
     <string name="cash_wallet">Cash wallet</string>
     <string name="transfer_wallet">Transfer wallet</string>
+
+    <string name="string_with_string_to_textview">%s %s</string>
+    <string name="dollar_with_string_to_textview">$%s</string>
 </resources>

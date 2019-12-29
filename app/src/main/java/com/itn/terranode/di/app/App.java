@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.itn.terranode.di.login.login_screen.LoginComponent;
 import com.itn.terranode.di.login.new_acc_screen.NewAccountComponent;
+import com.itn.terranode.di.main.office_screen.OfficeComponent;
 
 public class App extends Application {
 
@@ -14,6 +15,7 @@ public class App extends Application {
     private AppComponent appComponent;
     private LoginComponent loginComponent;
     private NewAccountComponent newAccountComponent;
+    private OfficeComponent officeComponent;
 
     public static App getInstance() {
         return instance;
@@ -51,5 +53,11 @@ public class App extends Application {
 
     public void clearNewAccountComponent() {
         newAccountComponent = null;
+    }
+
+    public OfficeComponent plusOfficeComponent() {
+        if (officeComponent == null)
+            officeComponent = appComponent.plusOfficeComponent();
+        return officeComponent;
     }
 }

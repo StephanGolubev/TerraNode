@@ -7,6 +7,6 @@ import dagger.Subcomponent;
 
 @AppScope
 @Subcomponent(modules = OfficeModule.class)
-interface OfficeComponent {
+public interface OfficeComponent {
     void inject(OfficePresenter officePresenter);
 }

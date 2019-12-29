@@ -5,8 +5,16 @@ import com.google.gson.annotations.SerializedName;
 public class OfficeSuccessResponse {
 
     @SerializedName("status")
-    String status;
+    private String status;
 
     @SerializedName("data")
-    InformationAboutUser data;
+    private InformationAboutUser data;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public InformationAboutUser getData() {
+        return data;
+    }
 }

@@ -15,6 +15,7 @@ import com.itn.terranode.R;
 import com.itn.terranode.data.network.dtos.InformationAboutUser;
 import com.itn.terranode.presentation.presenter.main.office_screen.OfficePresenter;
 import com.itn.terranode.presentation.view.main.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,8 +64,25 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     @Override
     public void showInformation(InformationAboutUser informationAboutUser) {
         userNameTextView.setText(informationAboutUser.getName());
-        personalIdTextView.setText("Your personal ID:" + informationAboutUser.getId());
-        currentLevelNameTextView.setText(informationAboutUser.getLevelInfo());
+        personalIdTextView.setText(getResources().getString(R.string.string_with_string_to_textview, "Your personal ID:", informationAboutUser.getId()));
+        currentLevelNameTextView.setText(informationAboutUser.getLevelInfo().getCurrentLevel().getName());
+        if(informationAboutUser.getPhoto() == null){
+            photoImageView.setVisibility(View.GONE);
+        } else {
+            Picasso.get()
+                    .load(informationAboutUser.getPhoto())
+                    .into(photoImageView);
+        }
+        cashValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview, informationAboutUser.getBalance().getCash()));
+        nodValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview,informationAboutUser.getBalance().getNod()));
+        partnerValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview,informationAboutUser.getBalance().getPartner()));
+        transferValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview,informationAboutUser.getBalance().getTransfer()));
+        sponsorIdTextView.setText(getResources().getString(R.string.string_with_string_to_textview,"Sponsor ID:", informationAboutUser.getSponsorId()));
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.logout)
@@ -72,13 +90,13 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
         quit();
     }
 
+    @OnClick(R.id.imageButton)
+    public void onImageButtonClicked() {
+        showToast("откроем диалог со спонсором");
+    }
+
     private void quit() {
         presenter.clearAll();
         ((MainActivity) getActivity()).showLoginScreen();
-    }
-
-    @OnClick(R.id.imageButton)
-    public void onImageButtonClicked() {
-        Toast.makeText(getContext(),"откроем диалог со спонсором", Toast.LENGTH_SHORT).show();
     }
 }

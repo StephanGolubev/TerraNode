@@ -5,5 +5,5 @@ import retrofit2.Response;
 
 public interface OfficeInteractor {
 
-    Maybe<Response<Object>> getInformationAboutUser(String token);
+    Maybe<Response<Object>> getInformationAboutUser();
 }
