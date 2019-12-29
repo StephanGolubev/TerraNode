@@ -2,15 +2,11 @@ package com.itn.terranode.data.network.dtos;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResponse {
+public class NewAccountSuccessResponse {
 
     @SerializedName("status")
-    private String status;
-
-    @SerializedName("error")
-    private ErrorResponse error;
+    String status;
 
     @SerializedName("data")
-    private String data;
-
+    NewAccountData data;
 }

@@ -1,5 +1,8 @@
 package com.itn.terranode.presentation.presenter.login.new_acc_screen;
 
+import com.google.gson.Gson;
+import com.itn.terranode.data.network.dtos.DetailMessageErrorResponse;
+import com.itn.terranode.data.network.dtos.NewAccountSuccessResponse;
 import com.itn.terranode.di.app.App;
 import com.itn.terranode.domain.login.new_acc_screen.NewAccountInteractor;
 import com.itn.terranode.presentation.view.login.new_acc_screen.NewAccountView;
@@ -30,13 +33,15 @@ public class NewAccountPresenter extends MvpPresenter<NewAccountView> {
                             switch (response.code()){
                                 case 400:{
                                     ResponseBody responseBody = response.errorBody();
+                                    DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
                                     break;
                                 }
                                 case 200:{
+                                    NewAccountSuccessResponse successResponse = (NewAccountSuccessResponse) response.body();
                                     break;
                                 }
                                 default:{
-
+                                    showMessage(response.message());
                                 }
                             }
                         },

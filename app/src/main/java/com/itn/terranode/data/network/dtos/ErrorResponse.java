@@ -8,5 +8,13 @@ public class ErrorResponse {
     private String code;
 
     @SerializedName("message")
-    private String message;
+    private Message message;
+
+    public String getCode() {
+        return code;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
 }

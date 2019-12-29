@@ -1,10 +1,9 @@
 package com.itn.terranode.presentation.view.splash_screen;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.itn.terranode.MainActivity;
+import com.itn.terranode.presentation.view.main.MainActivity;
 import com.itn.terranode.R;
 import com.itn.terranode.presentation.presenter.splash_screen.SplashScreenPresenter;
 import com.itn.terranode.presentation.view.login.LoginActivity;

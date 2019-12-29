@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.itn.terranode.MainActivity;
+import com.itn.terranode.presentation.view.main.MainActivity;
 import com.itn.terranode.R;
 import com.itn.terranode.presentation.view.login.login_screen.LoginScreenFragment;
 

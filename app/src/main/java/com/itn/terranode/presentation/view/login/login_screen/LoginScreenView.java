@@ -8,4 +8,7 @@ public interface LoginScreenView extends MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void showToast(String message);
+
+    @StateStrategyType(AddToEndSingleStrategy.class)
+    void showMainActivity();
 }

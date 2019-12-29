@@ -5,6 +5,7 @@ import com.itn.terranode.data.network.dtos.LoginDTO;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -25,5 +26,10 @@ public class LoginInteractorImpl implements LoginInteractor {
         return networkRepository.login(new LoginDTO(email, password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Completable saveToken(String accessToken) {
+        return Completable.complete();
     }
 }

@@ -68,4 +68,9 @@ public class LoginScreenFragment extends MvpAppCompatFragment implements LoginSc
     public void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void showMainActivity() {
+        ((LoginActivity) getActivity()).showMainScreen();
+    }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/office"
+        android:icon="@drawable/ic_office"
+        android:title="@string/office"/>
+
+    <item
+        android:id="@+id/products"
+        android:icon="@drawable/ic_products"
+        android:title="@string/products"/>
+
+    <item
+        android:id="@+id/news"
+        android:icon="@drawable/ic_news"
+        android:title="@string/news"/>
+
+    <item
+        android:id="@+id/support"
+        android:icon="@drawable/ic_support"
+        android:title="@string/support"/>
+
+</menu>

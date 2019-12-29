@@ -6,8 +6,8 @@ import com.itn.terranode.data.network.dtos.NewAccountDTO;
 import io.reactivex.Maybe;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface NetworkRepository {
@@ -18,9 +18,16 @@ public interface NetworkRepository {
     @POST("/api/v1/login")
     Maybe<Response<Object>> login(@Body LoginDTO gatewayAuthorizeRequest);
 
-//    @POST("/api/v1/logout")
-//    @Headers("content-type: application/json")
-//    Maybe<Response<Object>> login(@Header("Authorization") String authorization, @Body LoginDTO gatewayAuthorizeRequest);
+    @GET("/api/v1/user")
+    Maybe<Response<Object>> getInformationAboutUser(@Header("Authorization") String token);
 
+    @GET("/api/v1/news")
+    Maybe<Response<Object>> getNews(@Header("Authorization") String token);
+
+    @GET("/api/v1/products")
+    Maybe<Response<Object>> getProducts(@Header("Authorization") String token);
+
+    @GET("/api/v1/chat")
+    Maybe<Response<Object>> getChats(@Header("Authorization") String token);
 
 }
