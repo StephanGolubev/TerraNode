@@ -15,4 +15,10 @@
     <string name="products">Products</string>
     <string name="news">News</string>
     <string name="support">Support</string>
+    <string name="log_out">log out</string>
+    <string name="your_sponsor">Your sponsor</string>
+    <string name="partner_wallet">Partner wallet</string>
+    <string name="nod_wallet">Nod wallet</string>
+    <string name="cash_wallet">Cash wallet</string>
+    <string name="transfer_wallet">Transfer wallet</string>
 </resources>

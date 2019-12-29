@@ -1,5 +1,6 @@
 package com.itn.terranode.presentation.view.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.itn.terranode.R;
+import com.itn.terranode.presentation.view.login.LoginActivity;
 import com.itn.terranode.presentation.view.main.office_screen.OfficeFragment;
 
 import butterknife.BindView;
@@ -63,5 +65,12 @@ public class MainActivity extends AppCompatActivity {
         }
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
+    }
+
+
+    public void showLoginScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
