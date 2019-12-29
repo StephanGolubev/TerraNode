@@ -20,7 +20,7 @@ public class OfficeInteractorImpl implements OfficeInteractor {
 
     @Override
     public Maybe<Response<Object>> getInformationAboutUser() {
-        return networkRepository.getInformationAboutUser("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaXRuLmx0ZFwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE1Nzc2NDY4NDMsImV4cCI6MTU3NzY1MDQ0MywibmJmIjoxNTc3NjQ2ODQzLCJqdGkiOiJhRWZXWW0wSkpNbDIzUHpyIiwic3ViIjo2ODcyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.pSUSHfCwfBpd4lYxUzLNiBGAszPhn7EjV6eQr9sKoL0")
+        return networkRepository.getInformationAboutUser("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaXRuLmx0ZFwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE1Nzc2NTA4NTAsImV4cCI6MTU3NzY1NDQ1MCwibmJmIjoxNTc3NjUwODUwLCJqdGkiOiI5Y0VWbXM4WjhybHpuYllMIiwic3ViIjo2ODcyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.qI5bjrrgIBkDtabjY0vZLDf2bDCNf32x8tIe7hwufqA")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
