@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 
 import com.itn.terranode.di.login.login_screen.LoginComponent;
 import com.itn.terranode.di.login.new_acc_screen.NewAccountComponent;
+import com.itn.terranode.di.main.news_screen.NewsComponent;
 import com.itn.terranode.di.main.office_screen.OfficeComponent;
+import com.itn.terranode.di.main.products_screen.ProductsComponent;
 
 public class App extends Application {
 
@@ -16,6 +18,8 @@ public class App extends Application {
     private LoginComponent loginComponent;
     private NewAccountComponent newAccountComponent;
     private OfficeComponent officeComponent;
+    private ProductsComponent productsComponent;
+    private NewsComponent newsComponent;
 
     public static App getInstance() {
         return instance;
@@ -59,5 +63,29 @@ public class App extends Application {
         if (officeComponent == null)
             officeComponent = appComponent.plusOfficeComponent();
         return officeComponent;
+    }
+
+    public void clearOfficeComponent() {
+        officeComponent = null;
+    }
+
+    public ProductsComponent plusProductsComponent() {
+        if (productsComponent == null)
+            productsComponent = appComponent.plusProductsComponent();
+        return productsComponent;
+    }
+
+    public void clearProductsComponent() {
+        productsComponent = null;
+    }
+
+    public NewsComponent plusNewsComponent() {
+        if (newsComponent == null)
+            newsComponent = appComponent.plusNewsComponent();
+        return newsComponent;
+    }
+
+    public void clearNewsComponent() {
+        productsComponent = null;
     }
 }
