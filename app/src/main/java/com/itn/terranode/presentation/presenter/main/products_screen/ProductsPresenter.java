@@ -47,7 +47,7 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
                 },
                 throwable -> showMessage(throwable.getMessage()),
                 () -> showMessage("Try to login later")
-        ))
+        ));
     }
 
     private void showMessage(String message) {

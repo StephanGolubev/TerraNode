@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.itn.terranode.R;
 import com.itn.terranode.presentation.view.login.LoginActivity;
+import com.itn.terranode.presentation.view.main.news_screen.NewsFragment;
 import com.itn.terranode.presentation.view.main.office_screen.OfficeFragment;
 
 import butterknife.BindView;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     showBottomNavigationMenuFragment(new OfficeFragment());
                     return true;
                 case R.id.news:
-//                    showBottomNavigationMenuFragment(new NewsFragment());
+                    showBottomNavigationMenuFragment(new NewsFragment());
                     return true;
                 case R.id.support:
 //                    showBottomNavigationMenuFragment(new SupportFragment());
