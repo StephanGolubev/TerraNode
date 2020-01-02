@@ -2,6 +2,7 @@ package com.itn.terranode.domain.login.login_screen;
 
 import com.itn.terranode.data.network.NetworkRepository;
 import com.itn.terranode.data.network.dtos.LoginDTO;
+import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import javax.inject.Inject;
 
@@ -14,10 +15,12 @@ import retrofit2.Response;
 public class LoginInteractorImpl implements LoginInteractor {
 
     private final NetworkRepository networkRepository;
+    private final PrefsHelper prefsHelper;
 
     @Inject
-    public LoginInteractorImpl(NetworkRepository networkRepository) {
+    public LoginInteractorImpl(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
         this.networkRepository = networkRepository;
+        this.prefsHelper = prefsHelper;
     }
 
 
@@ -30,6 +33,9 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     @Override
     public Completable saveToken(String accessToken) {
-        return Completable.complete();
+        return Completable.fromCallable(() -> {
+            prefsHelper.setToken(accessToken);
+            return Completable.complete();
+        });
     }
 }

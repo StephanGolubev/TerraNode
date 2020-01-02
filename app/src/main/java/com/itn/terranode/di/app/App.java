@@ -34,8 +34,8 @@ public class App extends Application {
 
     private void initDagger() {
         appComponent = DaggerAppComponent
-                .builder()
-                .build();
+                .factory()
+                .create(this);
     }
 
     @NonNull
