@@ -9,7 +9,7 @@ import moxy.MvpPresenter;
 public class SplashScreenPresenter extends MvpPresenter<SplashScreenView> {
 
     public void checkIsUserLoggedIn() {
-        if(false){
+        if(true){
             getViewState().showLoginScreen();
         }else {
             getViewState().showMainScreen();

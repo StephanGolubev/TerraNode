@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         bnvNavigation.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.office:
-                    showBottomNavigationMenuFragment(new OfficeFragment());
+                    showBottomNavigationMenuFragment(new NewsFragment());
                     return true;
                 case R.id.news:
                     showBottomNavigationMenuFragment(new NewsFragment());
