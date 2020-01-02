@@ -6,23 +6,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itn.terranode.R;
+import com.itn.terranode.data.network.dtos.NewsItem;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
-    private List<News> newsList = new ArrayList<>();
+    private List<NewsItem> newsItems = new ArrayList<>();
     private OnItemClickListiner listiner;
 
-    void setNews(List<News> newsList, OnItemClickListiner listiner){
-        this.newsList.clear();
-        this.newsList.addAll(newsList);
+    void setNews(List<NewsItem> newsItems, OnItemClickListiner listiner){
+        this.newsItems.clear();
+        this.newsItems.addAll(newsItems);
         this.listiner = listiner;
         notifyDataSetChanged();
     }
@@ -36,16 +43,16 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-
+        holder.bind(newsItems.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return newsItems.size();
     }
 
     public interface OnItemClickListiner{
-        void onItemClick(News news);
+        void onItemClick(NewsItem newsItem);
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
@@ -54,15 +61,21 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
         TextView dateTextView;
         @BindView(R.id.newsTitleTextView)
         TextView newsTitleTextView;
+        @BindView(R.id.newsCardView)
+        CardView newsCardView;
 
         NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(News news){
-            dateTextView.setText("");
-            newsTitleTextView.setText("");
-        };
+        void bind(NewsItem newsItem){
+            DateTimeFormatter incomeDateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter outgoingDateFormatter = DateTimeFormat.forPattern("dd MMMM yy");
+            String date = outgoingDateFormatter.print(incomeDateFormatter.parseDateTime(newsItem.getCreatedAt()));
+            dateTextView.setText(date);
+            newsTitleTextView.setText(newsItem.getTitle());
+            newsCardView.setOnClickListener(v -> listiner.onItemClick(newsItem));
+        }
     }
 }

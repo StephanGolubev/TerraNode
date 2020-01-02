@@ -2,7 +2,21 @@ package com.itn.terranode.di.app;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.itn.terranode.data.network.NetworkRepository;
+import com.itn.terranode.data.network.deserializers.news.InformationAboutNewsDeserializer;
+import com.itn.terranode.data.network.deserializers.news.NewsDeserializer;
+import com.itn.terranode.data.network.deserializers.ProductsDeserializer;
+import com.itn.terranode.data.network.deserializers.news.NewsItemDeserializer;
+import com.itn.terranode.data.network.deserializers.office.InformationAboutOfficeDeserializer;
+import com.itn.terranode.data.network.deserializers.office.OfficeDeserializer;
+import com.itn.terranode.data.network.dtos.InformationAboutNews;
+import com.itn.terranode.data.network.dtos.InformationAboutUser;
+import com.itn.terranode.data.network.dtos.NewsItem;
+import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
+import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
+import com.itn.terranode.data.network.dtos.SuccessProductsResponse;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,10 +42,21 @@ public class NetworkModule {
     NetworkRepository provideNetworkRepository(){
         return new Retrofit.Builder().baseUrl(BASE_URL)
                 .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(NetworkRepository.class);
+    }
+
+    private Gson createGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(SuccessProductsResponse.class, new ProductsDeserializer())
+                .registerTypeAdapter(SuccessNewsResponse.class, new NewsDeserializer())
+                .registerTypeAdapter(InformationAboutNews.class, new InformationAboutNewsDeserializer())
+                .registerTypeAdapter(NewsItem.class, new NewsItemDeserializer())
+                .registerTypeAdapter(SuccessOfficeResponse.class, new OfficeDeserializer())
+                .registerTypeAdapter(InformationAboutUser.class, new InformationAboutOfficeDeserializer())
+                .create();
     }
 
     private OkHttpClient getOkHttpClient() {

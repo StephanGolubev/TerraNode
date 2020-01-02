@@ -1,6 +1,7 @@
 package com.itn.terranode.domain.main.office_screen;
 
 import com.itn.terranode.data.network.NetworkRepository;
+import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ public class OfficeInteractorImpl implements OfficeInteractor {
     }
 
     @Override
-    public Maybe<Response<Object>> getInformationAboutUser() {
+    public Maybe<SuccessOfficeResponse> getInformationAboutUser() {
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.getInformationAboutUser(token)
                 .subscribeOn(Schedulers.io())

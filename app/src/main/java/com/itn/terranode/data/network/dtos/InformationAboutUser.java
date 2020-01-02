@@ -52,4 +52,32 @@ public class InformationAboutUser {
     public Balance getBalance() {
         return balance;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setSponsorId(String sponsorId) {
+        this.sponsorId = sponsorId;
+    }
+
+    public void setLevelInfo(LevelInfo levelInfo) {
+        this.levelInfo = levelInfo;
+    }
+
+    public void setBalance(Balance balance) {
+        this.balance = balance;
+    }
 }

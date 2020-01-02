@@ -1,6 +1,8 @@
 package com.itn.terranode.domain.main.news_screen;
 
 import com.itn.terranode.data.network.NetworkRepository;
+import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
+import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import javax.inject.Inject;
 
@@ -12,15 +14,18 @@ import retrofit2.Response;
 public class NewsInteractorImpl implements NewsInteractor{
 
     private final NetworkRepository networkRepository;
+    private final PrefsHelper prefsHelper;
 
     @Inject
-    NewsInteractorImpl(NetworkRepository networkRepository) {
+    NewsInteractorImpl(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
         this.networkRepository = networkRepository;
+        this.prefsHelper = prefsHelper;
     }
 
     @Override
-    public Maybe<Response<Object>> getNews() {
-        return networkRepository.getNews("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvaXRuLmx0ZFwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE1Nzc2NTA4NTAsImV4cCI6MTU3NzY1NDQ1MCwibmJmIjoxNTc3NjUwODUwLCJqdGkiOiI5Y0VWbXM4WjhybHpuYllMIiwic3ViIjo2ODcyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.qI5bjrrgIBkDtabjY0vZLDf2bDCNf32x8tIe7hwufqA")
+    public Maybe<SuccessNewsResponse> getNews() {
+        String token = "Bearer " + prefsHelper.getToken();
+        return networkRepository.getNews(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

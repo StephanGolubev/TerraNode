@@ -6,9 +6,10 @@ import moxy.MvpView;
 import moxy.viewstate.strategy.AddToEndSingleStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
+@StateStrategyType(AddToEndSingleStrategy.class)
 public interface OfficeView extends MvpView {
-    @StateStrategyType(AddToEndSingleStrategy.class)
+
     void showInformation(InformationAboutUser informationAboutUser);
-    @StateStrategyType(AddToEndSingleStrategy.class)
+
     void showToast(String message);
 }

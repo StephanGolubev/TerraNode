@@ -2,6 +2,9 @@ package com.itn.terranode.data.network;
 
 import com.itn.terranode.data.network.dtos.LoginDTO;
 import com.itn.terranode.data.network.dtos.NewAccountDTO;
+import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
+import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
+import com.itn.terranode.data.network.dtos.SuccessProductsResponse;
 
 import io.reactivex.Maybe;
 import retrofit2.Response;
@@ -21,15 +24,15 @@ public interface NetworkRepository {
 
     @GET("/api/v1/user")
     @Headers("Accept: application/json")
-    Maybe<Response<Object>> getInformationAboutUser(@Header("Authorization") String token);
+    Maybe<SuccessOfficeResponse> getInformationAboutUser(@Header("Authorization") String token);
 
     @GET("/api/v1/news")
     @Headers("Accept: application/json")
-    Maybe<Response<Object>> getNews(@Header("Authorization") String token);
+    Maybe<SuccessNewsResponse> getNews(@Header("Authorization") String token);
 
     @GET("/api/v1/products")
     @Headers("Accept: application/json")
-    Maybe<Response<Object>> getProducts(@Header("Authorization") String token);
+    Maybe<SuccessProductsResponse> getProducts(@Header("Authorization") String token);
 
     @GET("/api/v1/chat")
     @Headers("Accept: application/json")

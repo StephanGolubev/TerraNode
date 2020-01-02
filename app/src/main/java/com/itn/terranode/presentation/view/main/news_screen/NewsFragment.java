@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itn.terranode.R;
+import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.presentation.presenter.main.news_screen.NewsPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,10 +54,8 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
     }
 
     @Override
-    public void showNews(List<News> news) {
-        adapter.setNews(news,  v -> {
-            showToast("news selected");
-        });
+    public void showNews(List<NewsItem> newsItems) {
+        adapter.setNews(newsItems, newsItem -> showToast("newsItems selected"));
     }
 
     @Override
