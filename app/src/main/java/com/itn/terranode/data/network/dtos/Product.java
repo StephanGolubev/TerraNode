@@ -24,4 +24,12 @@ public class Product {
 
     @SerializedName("url")
     private String url;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
 }

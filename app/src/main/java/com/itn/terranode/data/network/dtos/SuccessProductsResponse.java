@@ -2,6 +2,7 @@ package com.itn.terranode.data.network.dtos;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SuccessProductsResponse {
@@ -9,7 +10,7 @@ public class SuccessProductsResponse {
     private String status;
 
     @SerializedName("data")
-    private List<Product> data;
+    private List<Product> data = new ArrayList<>();
 
     @SerializedName("error")
     private ErrorResponse error;

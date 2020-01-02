@@ -14,6 +14,7 @@ import com.itn.terranode.R;
 import com.itn.terranode.presentation.view.login.LoginActivity;
 import com.itn.terranode.presentation.view.main.news_screen.NewsFragment;
 import com.itn.terranode.presentation.view.main.office_screen.OfficeFragment;
+import com.itn.terranode.presentation.view.main.products_screen.ProductsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //                    showBottomNavigationMenuFragment(new SupportFragment());
                     return true;
                 case R.id.products:
-//                    showBottomNavigationMenuFragment(new ProductsFragment());
+                    showBottomNavigationMenuFragment(new ProductsFragment());
                     return true;
                 default:
                     return false;

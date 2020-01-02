@@ -27,7 +27,7 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
         compositeDisposable = new CompositeDisposable();
     }
 
-    public void getNews() {
+    public void getProducts() {
         compositeDisposable.add(interactor.getProducts().subscribe(response -> {
                     switch (response.getStatus()) {
                         case "400": {
