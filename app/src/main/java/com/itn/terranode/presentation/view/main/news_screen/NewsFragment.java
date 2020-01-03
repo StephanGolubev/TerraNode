@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itn.terranode.R;
 import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.presentation.presenter.main.news_screen.NewsPresenter;
+import com.itn.terranode.presentation.view.main.MainActivity;
+import com.itn.terranode.presentation.view.main.news_detail_screen.NewsDetailFragment;
 
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
 
     @Override
     public void showNews(List<NewsItem> newsItems) {
-        adapter.setNews(newsItems, newsItem -> showToast("newsItems selected"));
+        adapter.setNews(newsItems, newsItem -> ((MainActivity) getActivity()).showFragment(NewsDetailFragment.newInstance(newsItem.getCreatedAt(), newsItem.getTitle(), newsItem.getText())));
     }
 
     @Override

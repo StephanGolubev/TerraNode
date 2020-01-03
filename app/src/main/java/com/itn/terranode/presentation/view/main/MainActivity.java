@@ -69,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public void showFragment(Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack("old");
+        transaction.add(R.id.container, fragment, "new");
+        transaction.commit();
+    }
 
     public void showLoginScreen() {
         Intent intent = new Intent(this, LoginActivity.class);
