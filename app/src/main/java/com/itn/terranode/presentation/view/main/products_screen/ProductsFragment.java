@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itn.terranode.R;
 import com.itn.terranode.data.network.dtos.Product;
 import com.itn.terranode.presentation.presenter.main.products_screen.ProductsPresenter;
+import com.itn.terranode.presentation.view.main.MainActivity;
+import com.itn.terranode.presentation.view.main.products_detail_screen.ProductsDetailFragment;
 
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class ProductsFragment extends MvpAppCompatFragment implements ProductsVi
     TextView screenNameTextView;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private Unbinder unbinder;
     private ProductsAdapter adapter;
@@ -55,11 +60,21 @@ public class ProductsFragment extends MvpAppCompatFragment implements ProductsVi
 
     @Override
     public void showProducts(List<Product> products) {
-        adapter.setProductList(products, product -> showToast(product.getName()));
+        adapter.setProductList(products, product -> ((MainActivity) getActivity()).showFragment(ProductsDetailFragment.newInstance(product.getUrl(), product.getName(), product.getText())));
     }
 
     @Override
     public void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 }

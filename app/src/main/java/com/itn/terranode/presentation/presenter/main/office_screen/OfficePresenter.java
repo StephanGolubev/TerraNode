@@ -28,24 +28,29 @@ public class OfficePresenter extends MvpPresenter<OfficeView> {
     }
 
     public void getInformationAboutUser() {
-        compositeDisposable.add(interactor.getInformationAboutUser().subscribe(response -> {
-                    switch (response.getStatus()){
-                        case "400":{
-//                            ResponseBody responseBody = response.errorBody();
-//                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
-                            break;
-                        }
-                        case "200":{
-                            getViewState().showInformation(response.getData());
-                            break;
-                        }
-                        default:{
-//                            showMessage(response.message());
-                        }
-                    }
-                },
-                throwable -> showMessage(throwable.getMessage()),
-                () -> showMessage("Try to login later")
+        compositeDisposable.add(
+                interactor
+                        .getInformationAboutUser()
+                        .doOnSubscribe(disposable -> getViewState().showProgressBar())
+                        .doAfterTerminate(() -> getViewState().hideProgressBar())
+                        .subscribe(response -> {
+                            switch (response.getStatus()){
+                                case "400":{
+        //                            ResponseBody responseBody = response.errorBody();
+        //                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                    break;
+                                }
+                                case "200":{
+                                    getViewState().showInformation(response.getData());
+                                    break;
+                                }
+                                default:{
+        //                            showMessage(response.message());
+                                }
+                            }
+                        },
+                        throwable -> showMessage(throwable.getMessage()),
+                        () -> showMessage("Try to login later")
         ));
     }
 
@@ -55,5 +60,24 @@ public class OfficePresenter extends MvpPresenter<OfficeView> {
 
     private void showMessage(String message) {
         getViewState().showToast(message);
+    }
+
+    public void logout() {
+        compositeDisposable.add(
+                interactor
+                        .logout()
+                        .doOnSubscribe(disposable -> getViewState().showProgressBar())
+                        .doAfterTerminate(() -> getViewState().hideProgressBar())
+                        .subscribe(
+                                successLogoutResponse -> {
+
+                                },
+                                throwable -> {
+
+                                },
+                                () -> {
+
+                                })
+        );
     }
 }

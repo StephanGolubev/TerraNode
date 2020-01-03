@@ -2,6 +2,7 @@ package com.itn.terranode.data.network;
 
 import com.itn.terranode.data.network.dtos.LoginDTO;
 import com.itn.terranode.data.network.dtos.NewAccountDTO;
+import com.itn.terranode.data.network.dtos.SuccessLogoutResponse;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
 import com.itn.terranode.data.network.dtos.SuccessProductsResponse;
@@ -13,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface NetworkRepository {
 
@@ -26,6 +28,9 @@ public interface NetworkRepository {
     @Headers("Accept: application/json")
     Maybe<SuccessOfficeResponse> getInformationAboutUser(@Header("Authorization") String token);
 
+    @POST("/api/v1/login")
+    Maybe<SuccessLogoutResponse> logout(@Header("Authorization")String token);
+
     @GET("/api/v1/news")
     @Headers("Accept: application/json")
     Maybe<SuccessNewsResponse> getNews(@Header("Authorization") String token);
@@ -34,8 +39,14 @@ public interface NetworkRepository {
     @Headers("Accept: application/json")
     Maybe<SuccessProductsResponse> getProducts(@Header("Authorization") String token);
 
+    @GET("api/v1/structure")
+    @Headers("Accept: application/json")
+    Maybe<Response<Object>> getStructure(@Header("Authorization") String token);
+
     @GET("/api/v1/chat")
     @Headers("Accept: application/json")
     Maybe<Response<Object>> getChats(@Header("Authorization") String token);
 
+    @POST("api/v1/search/users")
+    Maybe<Response<Object>> searchUsers(@Header("Authorization")String token, @Query("search_term") String searchTerm);
 }

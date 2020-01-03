@@ -13,4 +13,8 @@ public interface ProductsView extends MvpView {
     void showProducts(List<Product> products);
 
     void showToast(String message);
+
+    void showProgressBar();
+
+    void hideProgressBar();
 }

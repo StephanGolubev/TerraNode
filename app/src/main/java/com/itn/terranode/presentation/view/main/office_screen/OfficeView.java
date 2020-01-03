@@ -12,4 +12,10 @@ public interface OfficeView extends MvpView {
     void showInformation(InformationAboutUser informationAboutUser);
 
     void showToast(String message);
+
+    void showProgressBar();
+
+    void hideProgressBar();
+
+    void quit();
 }

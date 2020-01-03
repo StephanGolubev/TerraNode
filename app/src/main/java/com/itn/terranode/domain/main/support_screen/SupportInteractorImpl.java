@@ -1,8 +1,6 @@
-package com.itn.terranode.domain.main.office_screen;
+package com.itn.terranode.domain.main.support_screen;
 
 import com.itn.terranode.data.network.NetworkRepository;
-import com.itn.terranode.data.network.dtos.SuccessLogoutResponse;
-import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import javax.inject.Inject;
@@ -12,29 +10,33 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class OfficeInteractorImpl implements OfficeInteractor {
+public class SupportInteractorImpl implements SupportInteractor {
 
     private final NetworkRepository networkRepository;
     private final PrefsHelper prefsHelper;
 
     @Inject
-    OfficeInteractorImpl(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
+    SupportInteractorImpl(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
         this.networkRepository = networkRepository;
         this.prefsHelper = prefsHelper;
     }
-
     @Override
-    public Maybe<SuccessOfficeResponse> getInformationAboutUser() {
-        String token = "Bearer " + prefsHelper.getToken();
-        return networkRepository.getInformationAboutUser(token)
+    public Maybe<Response<Object>> getChats() {
+        return networkRepository.getChats(prefsHelper.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Maybe<SuccessLogoutResponse> logout() {
-        String token = "Bearer " + prefsHelper.getToken();
-        return networkRepository.logout(token)
+    public Maybe<Response<Object>> getStructure() {
+        return networkRepository.getStructure(prefsHelper.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Maybe<Response<Object>> searchUsers(String searchTerm) {
+        return networkRepository.searchUsers(prefsHelper.getToken(), searchTerm)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

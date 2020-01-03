@@ -82,4 +82,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void removeFragment(){
+        fragmentManager.popBackStack();
+    }
 }

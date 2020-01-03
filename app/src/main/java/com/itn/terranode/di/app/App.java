@@ -9,6 +9,7 @@ import com.itn.terranode.di.login.new_acc_screen.NewAccountComponent;
 import com.itn.terranode.di.main.news_screen.NewsComponent;
 import com.itn.terranode.di.main.office_screen.OfficeComponent;
 import com.itn.terranode.di.main.products_screen.ProductsComponent;
+import com.itn.terranode.di.main.support_screen.SupportComponent;
 
 public class App extends Application {
 
@@ -20,6 +21,7 @@ public class App extends Application {
     private OfficeComponent officeComponent;
     private ProductsComponent productsComponent;
     private NewsComponent newsComponent;
+    private SupportComponent supportComponent;
 
     public static App getInstance() {
         return instance;
@@ -86,6 +88,16 @@ public class App extends Application {
     }
 
     public void clearNewsComponent() {
-        productsComponent = null;
+        newsComponent = null;
+    }
+
+    public SupportComponent plusSupportComponent() {
+        if (supportComponent == null)
+            supportComponent = appComponent.plusSupportComponent();
+        return supportComponent;
+    }
+
+    public void clearSupportComponent() {
+        supportComponent = null;
     }
 }

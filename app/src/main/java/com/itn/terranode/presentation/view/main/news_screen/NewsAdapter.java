@@ -70,7 +70,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
         void bind(NewsItem newsItem){
             DateTimeFormatter incomeDateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-            DateTimeFormatter outgoingDateFormatter = DateTimeFormat.forPattern("dd MMMM yy");
+            DateTimeFormatter outgoingDateFormatter = DateTimeFormat.forPattern("dd MMMM yyyy");
             String date = outgoingDateFormatter.print(incomeDateFormatter.parseDateTime(newsItem.getCreatedAt()));
             dateTextView.setText(date);
             newsTitleTextView.setText(newsItem.getTitle());

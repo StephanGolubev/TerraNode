@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 
@@ -35,7 +37,7 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     @BindView(R.id.currentLevelNameTextView)
     TextView currentLevelNameTextView;
     @BindView(R.id.photoImageView)
-    ImageView photoImageView;
+    CircleImageView photoImageView;
     @BindView(R.id.cashValueTextView)
     TextView cashValueTextView;
     @BindView(R.id.nodValueTextView)
@@ -46,6 +48,8 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     TextView transferValueTextView;
     @BindView(R.id.sponsorIdTextView)
     TextView sponsorIdTextView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private Unbinder unbinder;
 
     @InjectPresenter
@@ -86,17 +90,29 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     }
 
     @OnClick(R.id.logout)
-    public void onLogoutClicked() {
+    void onLogoutClicked() {
+        presenter.logout();
         quit();
     }
 
     @OnClick(R.id.imageButton)
-    public void onImageButtonClicked() {
+    void onImageButtonClicked() {
         showToast("откроем диалог со спонсором");
     }
 
-    private void quit() {
+    @Override
+    public void quit() {
         presenter.clearAll();
         ((MainActivity) getActivity()).showLoginScreen();
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 }

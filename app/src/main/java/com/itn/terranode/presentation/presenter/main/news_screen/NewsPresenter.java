@@ -28,24 +28,29 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
     }
 
     public void getNews() {
-        compositeDisposable.add(interactor.getNews().subscribe(response -> {
-                    switch (response.getStatus()){
-                        case "400":{
-//                            ResponseBody responseBody = response.errorBody();
-//                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
-                            break;
-                        }
-                        case "200":{
-                            getViewState().showNews(response.getData().getNewsItems());
-                            break;
-                        }
-                        default:{
-                            //showMessage(response.message());
-                        }
-                    }
-                },
-                throwable -> showMessage(throwable.getMessage()),
-                () -> showMessage("Try to login later")
+        compositeDisposable.add(
+                interactor
+                        .getNews()
+                        .doOnSubscribe(disposable -> getViewState().showProgressBar())
+                        .doAfterTerminate(() -> getViewState().hideProgressBar())
+                        .subscribe(response -> {
+                            switch (response.getStatus()){
+                                case "400":{
+        //                            ResponseBody responseBody = response.errorBody();
+        //                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                    break;
+                                }
+                                case "200":{
+                                    getViewState().showNews(response.getData().getNewsItems());
+                                    break;
+                                }
+                                default:{
+                                    //showMessage(response.message());
+                                }
+                            }
+                        },
+                        throwable -> showMessage(throwable.getMessage()),
+                        () -> showMessage("Try to login later")
         ));
     }
 

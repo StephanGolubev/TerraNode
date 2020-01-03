@@ -13,4 +13,8 @@ public interface NewsView extends MvpView {
     void showNews(List<NewsItem> newsItems);
 
     void showToast(String message);
+
+    void showProgressBar();
+
+    void hideProgressBar();
 }

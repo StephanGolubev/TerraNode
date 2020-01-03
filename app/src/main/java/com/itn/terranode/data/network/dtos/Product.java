@@ -32,4 +32,24 @@ public class Product {
     public String getPrice() {
         return price;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getMax_dep() {
+        return max_dep;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }

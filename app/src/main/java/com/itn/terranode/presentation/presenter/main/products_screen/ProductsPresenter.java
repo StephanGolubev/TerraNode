@@ -28,7 +28,12 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
     }
 
     public void getProducts() {
-        compositeDisposable.add(interactor.getProducts().subscribe(response -> {
+        compositeDisposable.add(
+                interactor
+                        .getProducts()
+                        .doOnSubscribe(disposable -> getViewState().showProgressBar())
+                        .doAfterTerminate(() -> getViewState().hideProgressBar())
+                        .subscribe(response -> {
                     switch (response.getStatus()) {
                         case "400": {
                             //ResponseBody responseBody = response.errorBody();

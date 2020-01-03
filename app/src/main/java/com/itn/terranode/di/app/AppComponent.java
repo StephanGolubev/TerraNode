@@ -7,6 +7,7 @@ import com.itn.terranode.di.login.new_acc_screen.NewAccountComponent;
 import com.itn.terranode.di.main.news_screen.NewsComponent;
 import com.itn.terranode.di.main.office_screen.OfficeComponent;
 import com.itn.terranode.di.main.products_screen.ProductsComponent;
+import com.itn.terranode.di.main.support_screen.SupportComponent;
 
 import javax.inject.Singleton;
 
@@ -32,4 +33,6 @@ public interface AppComponent {
     ProductsComponent plusProductsComponent();
 
     NewsComponent plusNewsComponent();
+
+    SupportComponent plusSupportComponent();
 }

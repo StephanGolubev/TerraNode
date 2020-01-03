@@ -61,4 +61,6 @@ dependencies {
 
     //jodatime
     implementation 'joda-time:joda-time:2.10.5'
+
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 }

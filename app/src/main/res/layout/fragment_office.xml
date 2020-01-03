@@ -96,7 +96,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/personalIdTextView"
                 tools:text="currentLevelName" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/photoImageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -110,7 +110,9 @@
                 app:layout_constraintStart_toEndOf="@+id/userNameTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
-                tools:srcCompat="@tools:sample/avatars[0]" />
+                tools:srcCompat="@tools:sample/avatars[0]"
+                app:civ_border_width="3dp"
+                app:civ_border_color="#FFECECFB"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -349,6 +351,17 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
