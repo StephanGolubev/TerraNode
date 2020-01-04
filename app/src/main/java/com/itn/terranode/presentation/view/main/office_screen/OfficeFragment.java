@@ -50,6 +50,8 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     TextView sponsorIdTextView;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.imageButton)
+    ImageView imageButton;
     private Unbinder unbinder;
 
     @InjectPresenter
@@ -82,6 +84,9 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
         partnerValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview,informationAboutUser.getBalance().getPartner()));
         transferValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview,informationAboutUser.getBalance().getTransfer()));
         sponsorIdTextView.setText(getResources().getString(R.string.string_with_string_to_textview,"Sponsor ID:", informationAboutUser.getSponsorId()));
+        imageButton.setOnClickListener(v -> {
+            ((MainActivity) getActivity()).showChatActivityByUserId(informationAboutUser.getSponsorId(), "Sponsor");
+        });
     }
 
     @Override
@@ -93,11 +98,6 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     void onLogoutClicked() {
         presenter.logout();
         quit();
-    }
-
-    @OnClick(R.id.imageButton)
-    void onImageButtonClicked() {
-        showToast("откроем диалог со спонсором");
     }
 
     @Override
@@ -114,5 +114,11 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.destroy();
+        super.onDestroy();
     }
 }

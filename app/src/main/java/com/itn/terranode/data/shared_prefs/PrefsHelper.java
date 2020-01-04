@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 public class PrefsHelper {
 
     private final String TOKEN = "token";
+    private final String ID = "id";
 
     private SharedPreferences sharedPreferences;
 
@@ -20,5 +21,15 @@ public class PrefsHelper {
 
     public String getToken(){
         return sharedPreferences.getString(TOKEN, "");
+    }
+
+    public void setCurrentId(String id) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(ID, id);
+        editor.apply();
+    }
+
+    public String getId(){
+        return sharedPreferences.getString(ID, "");
     }
 }

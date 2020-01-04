@@ -25,4 +25,7 @@
     <string name="string_with_string_to_textview">%s %s</string>
     <string name="dollar_with_string_to_textview">$%s</string>
     <string name="view_more">View More</string>
+    <string name="correspondence">Your correspondence</string>
+    <string name="structure">Your structure</string>
+    <string name="you">You</string>
 </resources>

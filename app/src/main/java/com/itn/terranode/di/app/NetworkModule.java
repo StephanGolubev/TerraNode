@@ -11,12 +11,22 @@ import com.itn.terranode.data.network.deserializers.ProductsDeserializer;
 import com.itn.terranode.data.network.deserializers.news.NewsItemDeserializer;
 import com.itn.terranode.data.network.deserializers.office.InformationAboutOfficeDeserializer;
 import com.itn.terranode.data.network.deserializers.office.OfficeDeserializer;
+import com.itn.terranode.data.network.deserializers.support.ChatDeserializer;
+import com.itn.terranode.data.network.deserializers.support.ChatsDeserializer;
+import com.itn.terranode.data.network.deserializers.support.InformationAboutMessagesDeserializer;
+import com.itn.terranode.data.network.deserializers.support.SearchDeserializer;
+import com.itn.terranode.data.network.deserializers.support.StructureDeserializer;
+import com.itn.terranode.data.network.dtos.InformationAboutMessages;
 import com.itn.terranode.data.network.dtos.InformationAboutNews;
 import com.itn.terranode.data.network.dtos.InformationAboutUser;
 import com.itn.terranode.data.network.dtos.NewsItem;
+import com.itn.terranode.data.network.dtos.SuccessChatsResponce;
+import com.itn.terranode.data.network.dtos.SuccessCreateChatResponce;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
 import com.itn.terranode.data.network.dtos.SuccessProductsResponse;
+import com.itn.terranode.data.network.dtos.SuccessSearchResponce;
+import com.itn.terranode.data.network.dtos.SuccessStructureResponce;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,7 +65,11 @@ public class NetworkModule {
                 .registerTypeAdapter(InformationAboutNews.class, new InformationAboutNewsDeserializer())
                 .registerTypeAdapter(NewsItem.class, new NewsItemDeserializer())
                 .registerTypeAdapter(SuccessOfficeResponse.class, new OfficeDeserializer())
-                .registerTypeAdapter(InformationAboutUser.class, new InformationAboutOfficeDeserializer())
+                .registerTypeAdapter(InformationAboutMessages.class, new InformationAboutMessagesDeserializer())
+                .registerTypeAdapter(SuccessSearchResponce.class, new SearchDeserializer())
+                .registerTypeAdapter(SuccessStructureResponce.class, new StructureDeserializer())
+                .registerTypeAdapter(SuccessChatsResponce.class, new ChatsDeserializer())
+                .registerTypeAdapter(SuccessCreateChatResponce.class, new ChatDeserializer())
                 .create();
     }
 

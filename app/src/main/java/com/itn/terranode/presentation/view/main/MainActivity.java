@@ -2,7 +2,6 @@ package com.itn.terranode.presentation.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,9 +11,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.itn.terranode.R;
 import com.itn.terranode.presentation.view.login.LoginActivity;
+import com.itn.terranode.presentation.view.main.chat_screen.ChatActivity;
 import com.itn.terranode.presentation.view.main.news_screen.NewsFragment;
 import com.itn.terranode.presentation.view.main.office_screen.OfficeFragment;
 import com.itn.terranode.presentation.view.main.products_screen.ProductsFragment;
+import com.itn.terranode.presentation.view.main.support_screen.SupportFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     showBottomNavigationMenuFragment(new NewsFragment());
                     return true;
                 case R.id.support:
-//                    showBottomNavigationMenuFragment(new SupportFragment());
+                    showBottomNavigationMenuFragment(new SupportFragment());
                     return true;
                 case R.id.products:
                     showBottomNavigationMenuFragment(new ProductsFragment());
@@ -85,5 +86,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeFragment(){
         fragmentManager.popBackStack();
+    }
+
+    public void showChatActivityByChatId(String chatId, String name) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("chatId", chatId);
+        intent.putExtra("userName", name);
+        startActivity(intent);
+    }
+
+    public void showChatActivityByUserId(String userId, String name) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("userName", name);
+        startActivity(intent);
     }
 }

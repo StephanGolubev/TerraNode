@@ -45,16 +45,17 @@ public class NewAccountPresenter extends MvpPresenter<NewAccountView> {
                                 }
                             }
                         },
-                        throwable -> {
-                            showMessage(throwable.getMessage());
-                        },
-                        () -> {
-                            showMessage("Try to create account later");
-                        })
+                        throwable -> showMessage(throwable.getMessage()),
+                        () -> showMessage("Try to create account later"))
         );
     }
 
     private void showMessage(String message) {
         getViewState().showToast(message);
+    }
+
+    public void destroy() {
+        compositeDisposable.clear();
+        App.getInstance().clearNewAccountComponent();
     }
 }

@@ -42,6 +42,7 @@ public class OfficePresenter extends MvpPresenter<OfficeView> {
                                 }
                                 case "200":{
                                     getViewState().showInformation(response.getData());
+                                    interactor.saveCurrentId(response.getData().getId());
                                     break;
                                 }
                                 default:{
@@ -79,5 +80,10 @@ public class OfficePresenter extends MvpPresenter<OfficeView> {
 
                                 })
         );
+    }
+
+    public void destroy() {
+        compositeDisposable.clear();
+        App.getInstance().clearOfficeComponent();
     }
 }

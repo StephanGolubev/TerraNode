@@ -10,4 +10,6 @@ public interface OfficeInteractor {
     Maybe<SuccessOfficeResponse> getInformationAboutUser();
 
     Maybe<SuccessLogoutResponse> logout();
+
+    void saveCurrentId(String id);
 }

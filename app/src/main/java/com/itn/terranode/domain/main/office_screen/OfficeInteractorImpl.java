@@ -38,4 +38,9 @@ public class OfficeInteractorImpl implements OfficeInteractor {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    @Override
+    public void saveCurrentId(String id) {
+        prefsHelper.setCurrentId(id);
+    }
 }

@@ -76,4 +76,10 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onDestroy() {
+        presenter.destroy();
+        super.onDestroy();
+    }
 }

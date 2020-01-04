@@ -77,4 +77,10 @@ public class ProductsFragment extends MvpAppCompatFragment implements ProductsVi
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onDestroy() {
+        presenter.destroy();
+        super.onDestroy();
+    }
 }

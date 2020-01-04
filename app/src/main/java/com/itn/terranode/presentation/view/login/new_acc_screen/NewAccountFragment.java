@@ -75,4 +75,10 @@ public class NewAccountFragment extends MvpAppCompatFragment implements NewAccou
                 sponsorIdEditText.getText().toString());
     }
 
+    @Override
+    public void onDestroy() {
+        presenter.destroy();
+        super.onDestroy();
+    }
+
 }

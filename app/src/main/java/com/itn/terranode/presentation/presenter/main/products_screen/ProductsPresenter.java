@@ -57,4 +57,9 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
     private void showMessage(String message) {
         getViewState().showToast(message);
     }
+
+    public void destroy() {
+        compositeDisposable.clear();
+        App.getInstance().clearProductsComponent();
+    }
 }

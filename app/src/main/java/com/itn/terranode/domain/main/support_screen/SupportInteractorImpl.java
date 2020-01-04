@@ -1,6 +1,9 @@
 package com.itn.terranode.domain.main.support_screen;
 
 import com.itn.terranode.data.network.NetworkRepository;
+import com.itn.terranode.data.network.dtos.SuccessChatsResponce;
+import com.itn.terranode.data.network.dtos.SuccessSearchResponce;
+import com.itn.terranode.data.network.dtos.SuccessStructureResponce;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import javax.inject.Inject;
@@ -21,22 +24,25 @@ public class SupportInteractorImpl implements SupportInteractor {
         this.prefsHelper = prefsHelper;
     }
     @Override
-    public Maybe<Response<Object>> getChats() {
-        return networkRepository.getChats(prefsHelper.getToken())
+    public Maybe<SuccessChatsResponce> getChats() {
+        String token = "Bearer " + prefsHelper.getToken();
+        return networkRepository.getChatsList(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Maybe<Response<Object>> getStructure() {
-        return networkRepository.getStructure(prefsHelper.getToken())
+    public Maybe<SuccessStructureResponce> getStructure() {
+        String token = "Bearer " + prefsHelper.getToken();
+        return networkRepository.getStructure(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Maybe<Response<Object>> searchUsers(String searchTerm) {
-        return networkRepository.searchUsers(prefsHelper.getToken(), searchTerm)
+    public Maybe<SuccessSearchResponce> searchUsers(String searchTerm) {
+        String token = "Bearer " + prefsHelper.getToken();
+        return networkRepository.searchUsers(token, searchTerm)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

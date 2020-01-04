@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.itn.terranode.di.login.login_screen.LoginComponent;
 import com.itn.terranode.di.login.new_acc_screen.NewAccountComponent;
+import com.itn.terranode.di.main.chat_screen.ChatComponent;
 import com.itn.terranode.di.main.news_screen.NewsComponent;
 import com.itn.terranode.di.main.office_screen.OfficeComponent;
 import com.itn.terranode.di.main.products_screen.ProductsComponent;
@@ -35,4 +36,6 @@ public interface AppComponent {
     NewsComponent plusNewsComponent();
 
     SupportComponent plusSupportComponent();
+
+    ChatComponent plusChatComponent();
 }

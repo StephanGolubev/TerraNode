@@ -73,4 +73,10 @@ public class LoginScreenFragment extends MvpAppCompatFragment implements LoginSc
     public void showMainActivity() {
         ((LoginActivity) getActivity()).showMainScreen();
     }
+
+    @Override
+    public void onDestroy() {
+        presenter.destroy();
+        super.onDestroy();
+    }
 }
