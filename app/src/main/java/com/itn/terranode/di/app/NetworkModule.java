@@ -8,9 +8,7 @@ import com.itn.terranode.data.network.NetworkRepository;
 import com.itn.terranode.data.network.deserializers.news.InformationAboutNewsDeserializer;
 import com.itn.terranode.data.network.deserializers.news.NewsDeserializer;
 import com.itn.terranode.data.network.deserializers.ProductsDeserializer;
-import com.itn.terranode.data.network.deserializers.news.NewsItemDeserializer;
-import com.itn.terranode.data.network.deserializers.office.InformationAboutOfficeDeserializer;
-import com.itn.terranode.data.network.deserializers.office.OfficeDeserializer;
+import com.itn.terranode.data.network.deserializers.OfficeDeserializer;
 import com.itn.terranode.data.network.deserializers.support.ChatDeserializer;
 import com.itn.terranode.data.network.deserializers.support.ChatsDeserializer;
 import com.itn.terranode.data.network.deserializers.support.InformationAboutMessagesDeserializer;
@@ -18,8 +16,6 @@ import com.itn.terranode.data.network.deserializers.support.SearchDeserializer;
 import com.itn.terranode.data.network.deserializers.support.StructureDeserializer;
 import com.itn.terranode.data.network.dtos.InformationAboutMessages;
 import com.itn.terranode.data.network.dtos.InformationAboutNews;
-import com.itn.terranode.data.network.dtos.InformationAboutUser;
-import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.data.network.dtos.SuccessChatsResponce;
 import com.itn.terranode.data.network.dtos.SuccessCreateChatResponce;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
@@ -60,11 +56,10 @@ public class NetworkModule {
 
     private Gson createGson() {
         return new GsonBuilder()
+                .registerTypeAdapter(SuccessOfficeResponse.class, new OfficeDeserializer())
                 .registerTypeAdapter(SuccessProductsResponse.class, new ProductsDeserializer())
                 .registerTypeAdapter(SuccessNewsResponse.class, new NewsDeserializer())
                 .registerTypeAdapter(InformationAboutNews.class, new InformationAboutNewsDeserializer())
-                .registerTypeAdapter(NewsItem.class, new NewsItemDeserializer())
-                .registerTypeAdapter(SuccessOfficeResponse.class, new OfficeDeserializer())
                 .registerTypeAdapter(InformationAboutMessages.class, new InformationAboutMessagesDeserializer())
                 .registerTypeAdapter(SuccessSearchResponce.class, new SearchDeserializer())
                 .registerTypeAdapter(SuccessStructureResponce.class, new StructureDeserializer())

@@ -25,7 +25,7 @@ public class ProductsDeserializer implements JsonDeserializer<SuccessProductsRes
 
             JsonArray productList = jsonObject.getAsJsonArray("data");
             for (JsonElement jsonElement : productList) {
-                successResponse.addData( context.deserialize(jsonElement, Product.class));
+                successResponse.addData(context.deserialize(jsonElement, Product.class));
             }
         }
 

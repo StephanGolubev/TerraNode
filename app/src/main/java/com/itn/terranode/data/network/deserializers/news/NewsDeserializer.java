@@ -26,7 +26,7 @@ public class NewsDeserializer implements JsonDeserializer<SuccessNewsResponse> {
             successResponse.setError(null);
 
             JsonObject news = jsonObject.getAsJsonObject("data");
-            successResponse.setData((InformationAboutNews) context.deserialize(news, InformationAboutNews.class));
+            successResponse.setData(context.deserialize(news, InformationAboutNews.class));
 
         }
 

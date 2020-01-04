@@ -1,4 +1,4 @@
-package com.itn.terranode.data.network.deserializers.office;
+package com.itn.terranode.data.network.deserializers;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -25,7 +25,7 @@ public class OfficeDeserializer implements JsonDeserializer<SuccessOfficeRespons
             successResponse.setError(null);
 
             JsonObject news = jsonObject.getAsJsonObject("data");
-            successResponse.setData((InformationAboutUser) context.deserialize(news, InformationAboutUser.class));
+            successResponse.setData(context.deserialize(news, InformationAboutUser.class));
 
         }
 
