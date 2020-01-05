@@ -12,11 +12,13 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class ChatInteractorImpl implements ChatInteractor {
 
     private final NetworkRepository networkRepository;
     private final PrefsHelper prefsHelper;
+    private String chatId = "";
 
     @Inject
     ChatInteractorImpl(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
@@ -25,16 +27,17 @@ public class ChatInteractorImpl implements ChatInteractor {
     }
 
     @Override
-    public Maybe<SuccessGetMessageFromChatResponce> createChat(String userId) {
+    public Maybe<Response<SuccessGetMessageFromChatResponce>>  createChat(String userId) {
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.createChat(token, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(successCreateChatResponce -> getMessages(successCreateChatResponce.getData()));
+                .flatMap(successCreateChatResponce -> getMessages(successCreateChatResponce.body().getData()));
     }
 
     @Override
-    public Maybe<SuccessGetMessageFromChatResponce> getMessages(String chatId) {
+    public Maybe<Response<SuccessGetMessageFromChatResponce>>  getMessages(String chatId) {
+        this.chatId = chatId;
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.getMessageFromChat(token, chatId)
                 .subscribeOn(Schedulers.io())
@@ -46,11 +49,11 @@ public class ChatInteractorImpl implements ChatInteractor {
         return prefsHelper.getId();
     }
 
-//    @Override
-//    public Maybe<SuccessAddMessageToChatResponce> sendMessage(String chatId, String message) {
-//        String token = "Bearer " + prefsHelper.getToken();
-//        return networkRepository.addMessageToChat(token, chatId, message)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread());
-//    }
+    @Override
+    public Maybe<Response<Void>> sendMessage(String message) {
+        String token = "Bearer " + prefsHelper.getToken();
+        return networkRepository.addMessageToChat(token, chatId, message)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

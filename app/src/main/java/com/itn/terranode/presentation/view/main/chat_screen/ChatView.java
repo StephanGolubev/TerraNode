@@ -20,4 +20,6 @@ public interface ChatView extends MvpView {
     void hideProgressBar();
 
     void showToast(String message);
+
+    void clearEditText();
 }

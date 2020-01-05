@@ -60,7 +60,12 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
 
     private void initUI(View view) {
         unbinder = ButterKnife.bind(this, view);
-        screenNameTextView.setText("Support");
+        screenNameTextView.setText(R.string.support);
+        searchView.setActivated(true);
+        searchView.setQueryHint("Search by name or number");
+        searchView.setIconified(false);
+        searchView.onActionViewExpanded();
+        searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

@@ -61,11 +61,11 @@ public interface NetworkRepository {
     Maybe<Response<SuccessChatsResponce>> getChatsList(@Header("Authorization") String token);
 
     @POST("/api/v1/chat")
-    Maybe<SuccessCreateChatResponce> createChat(@Header("Authorization")String token, @Query("interlocutor_id") String userId);
-//
-//    @POST("/api/v1/chat/{chatId}/message")
-//    Maybe<SuccessAddMessageToChatResponce> addMessageToChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("message") String messageString);
+    Maybe<Response<SuccessCreateChatResponce>> createChat(@Header("Authorization")String token, @Query("interlocutor_id") String userId);
+
+    @POST("/api/v1/chat/{chatId}/message")
+    Maybe<Response<Void>> addMessageToChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("message") String messageString);
 
     @GET("/api/v1/chat/{chatId}/message")
-    Maybe<SuccessGetMessageFromChatResponce> getMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id);
+    Maybe<Response<SuccessGetMessageFromChatResponce>> getMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id);
 }

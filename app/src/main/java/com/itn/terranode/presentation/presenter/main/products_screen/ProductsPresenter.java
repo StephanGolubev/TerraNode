@@ -49,7 +49,9 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
                                     showMessage("Unexpected Error");
                                 }
                             }
-                        })
+                        },
+                        throwable -> showMessage(throwable.getMessage()),
+                        () -> showMessage("Server timeout"))
         );
     }
 
