@@ -6,5 +6,5 @@ import io.reactivex.Maybe;
 import retrofit2.Response;
 
 public interface ProductsInteractor {
-    Maybe<SuccessProductsResponse> getProducts();
+    Maybe<Response<SuccessProductsResponse>> getProducts();
 }

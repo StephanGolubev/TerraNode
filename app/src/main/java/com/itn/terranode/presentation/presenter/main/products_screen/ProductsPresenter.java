@@ -34,23 +34,23 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
                         .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(response -> {
-                    switch (response.getStatus()) {
-                        case "400": {
-
-                            break;
-                        }
-                        case "200": {
-                            getViewState().showProducts(response.getData());
-                            break;
-                        }
-                        default: {
-                            showMessage("Unexpected Error");
-                        }
-                    }
-                },
-                throwable -> showMessage(throwable.getMessage()),
-                () -> showMessage("Server timeout")
-        ));
+                            switch (response.code()) {
+                                case 400: {
+                                    ResponseBody responseBody = response.errorBody();
+                                    DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                    showMessage(errorResponse.getError().getMessage());
+                                    break;
+                                }
+                                case 200: {
+                                    getViewState().showProducts(response.body().getData());
+                                    break;
+                                }
+                                default: {
+                                    showMessage("Unexpected Error");
+                                }
+                            }
+                        })
+        );
     }
 
     private void showMessage(String message) {

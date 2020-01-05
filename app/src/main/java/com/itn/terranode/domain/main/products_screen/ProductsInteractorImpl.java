@@ -23,7 +23,7 @@ public class ProductsInteractorImpl implements ProductsInteractor {
     }
 
     @Override
-    public Maybe<SuccessProductsResponse> getProducts() {
+    public Maybe<Response<SuccessProductsResponse>> getProducts() {
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.getProducts(token)
                 .subscribeOn(Schedulers.io())

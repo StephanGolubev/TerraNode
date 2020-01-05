@@ -62,7 +62,7 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_office, container, false);
         unbinder = ButterKnife.bind(this, view);
-        screenNameTextView.setText("Personal Office");
+        screenNameTextView.setText(getResources().getString(R.string.p_office));
         presenter.getInformationAboutUser();
         return view;
     }
@@ -84,9 +84,7 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
         partnerValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview,informationAboutUser.getBalance().getPartner()));
         transferValueTextView.setText(getResources().getString(R.string.dollar_with_string_to_textview,informationAboutUser.getBalance().getTransfer()));
         sponsorIdTextView.setText(getResources().getString(R.string.string_with_string_to_textview,"Sponsor ID:", informationAboutUser.getSponsorId()));
-        imageButton.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).showChatActivityByUserId(informationAboutUser.getSponsorId(), "Sponsor");
-        });
+        imageButton.setOnClickListener(v -> ((MainActivity) getActivity()).showChatActivityByUserId(informationAboutUser.getSponsorId(), "Sponsor"));
     }
 
     @Override
@@ -97,7 +95,6 @@ public class OfficeFragment extends MvpAppCompatFragment implements OfficeView {
     @OnClick(R.id.logout)
     void onLogoutClicked() {
         presenter.logout();
-        quit();
     }
 
     @Override

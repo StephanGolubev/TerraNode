@@ -43,22 +43,22 @@ public interface NetworkRepository {
 
     @GET("/api/v1/news")
     @Headers("Accept: application/json")
-    Maybe<SuccessNewsResponse> getNews(@Header("Authorization") String token);
+    Maybe<Response<SuccessNewsResponse>> getNews(@Header("Authorization") String token);
 
     @GET("/api/v1/products")
     @Headers("Accept: application/json")
-    Maybe<SuccessProductsResponse> getProducts(@Header("Authorization") String token);
+    Maybe<Response<SuccessProductsResponse>> getProducts(@Header("Authorization") String token);
 
     @GET("api/v1/structure")
     @Headers("Accept: application/json")
-    Maybe<SuccessStructureResponce> getStructure(@Header("Authorization") String token);
+    Maybe<Response<SuccessStructureResponce>> getStructure(@Header("Authorization") String token);
 
     @POST("api/v1/search/users")
     Maybe<SuccessSearchResponce> searchUsers(@Header("Authorization")String token, @Query("search_term") String searchTerm);
 
     @GET("/api/v1/chat")
     @Headers("Accept: application/json")
-    Maybe<SuccessChatsResponce> getChatsList(@Header("Authorization") String token);
+    Maybe<Response<SuccessChatsResponce>> getChatsList(@Header("Authorization") String token);
 
     @POST("/api/v1/chat")
     Maybe<SuccessCreateChatResponce> createChat(@Header("Authorization")String token, @Query("interlocutor_id") String userId);

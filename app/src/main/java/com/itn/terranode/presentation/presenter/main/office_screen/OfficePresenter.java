@@ -56,10 +56,6 @@ public class OfficePresenter extends MvpPresenter<OfficeView> {
         ));
     }
 
-    public void clearAll() {
-        interactor.clearAll();
-    }
-
     private void showMessage(String message) {
         getViewState().showToast(message);
     }
@@ -71,16 +67,14 @@ public class OfficePresenter extends MvpPresenter<OfficeView> {
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
                         .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(
-                                successLogoutResponse -> {
-
-                                },
-                                throwable -> {
-
-                                },
-                                () -> {
-
-                                })
+                                successLogoutResponse -> getViewState().quit(),
+                                throwable -> getViewState().quit(),
+                                () -> getViewState().quit())
         );
+    }
+
+    public void clearAll() {
+        interactor.clearAll();
     }
 
     public void destroy() {

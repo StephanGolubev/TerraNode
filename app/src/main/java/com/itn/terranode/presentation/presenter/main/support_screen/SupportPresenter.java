@@ -1,5 +1,7 @@
 package com.itn.terranode.presentation.presenter.main.support_screen;
 
+import com.google.gson.Gson;
+import com.itn.terranode.data.network.dtos.DetailMessageErrorResponse;
 import com.itn.terranode.di.app.App;
 import com.itn.terranode.domain.main.support_screen.SupportInteractor;
 import com.itn.terranode.presentation.view.main.support_screen.SupportView;
@@ -9,6 +11,7 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
+import okhttp3.ResponseBody;
 
 @InjectViewState
 public class SupportPresenter extends MvpPresenter<SupportView> {
@@ -57,14 +60,15 @@ public class SupportPresenter extends MvpPresenter<SupportView> {
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
                         .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(response -> {
-                                    switch (response.getStatus()){
-                                        case "400":{
-                                            //                            ResponseBody responseBody = response.errorBody();
-                                            //                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                    switch (response.code()){
+                                        case 400:{
+                                            ResponseBody responseBody = response.errorBody();
+                                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                            showMessage(errorResponse.getError().getMessage());
                                             break;
                                         }
-                                        case "200":{
-                                            getViewState().showChats(response.getData());
+                                        case 200:{
+                                            getViewState().showChats(response.body().getData());
                                             break;
                                         }
                                         default:{
@@ -84,14 +88,15 @@ public class SupportPresenter extends MvpPresenter<SupportView> {
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
                         .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(response -> {
-                                    switch (response.getStatus()){
-                                        case "400":{
-                                            //                            ResponseBody responseBody = response.errorBody();
-                                            //                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                    switch (response.code()){
+                                        case 400:{
+                                            ResponseBody responseBody = response.errorBody();
+                                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                            showMessage(errorResponse.getError().getMessage());
                                             break;
                                         }
-                                        case "200":{
-                                            getViewState().showStructure(response.getData().getUsers());
+                                        case 200:{
+                                            getViewState().showStructure(response.body().getData().getUsers());
                                             break;
                                         }
                                         default:{

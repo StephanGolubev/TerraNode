@@ -23,7 +23,7 @@ public class NewsInteractorImpl implements NewsInteractor{
     }
 
     @Override
-    public Maybe<SuccessNewsResponse> getNews() {
+    public Maybe<Response<SuccessNewsResponse>> getNews() {
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.getNews(token)
                 .subscribeOn(Schedulers.io())

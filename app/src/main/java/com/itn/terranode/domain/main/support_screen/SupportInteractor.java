@@ -5,12 +5,13 @@ import com.itn.terranode.data.network.dtos.SuccessSearchResponce;
 import com.itn.terranode.data.network.dtos.SuccessStructureResponce;
 
 import io.reactivex.Maybe;
+import retrofit2.Response;
 
 public interface SupportInteractor {
 
-    Maybe<SuccessChatsResponce> getChats();
+    Maybe<Response<SuccessChatsResponce>> getChats();
 
-    Maybe<SuccessStructureResponce> getStructure();
+    Maybe<Response<SuccessStructureResponce>> getStructure();
 
     Maybe<SuccessSearchResponce> searchUsers(String searchTerm);
 }

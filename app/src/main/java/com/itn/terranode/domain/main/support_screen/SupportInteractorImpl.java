@@ -24,7 +24,7 @@ public class SupportInteractorImpl implements SupportInteractor {
         this.prefsHelper = prefsHelper;
     }
     @Override
-    public Maybe<SuccessChatsResponce> getChats() {
+    public Maybe<Response<SuccessChatsResponce>> getChats() {
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.getChatsList(token)
                 .subscribeOn(Schedulers.io())
@@ -32,7 +32,7 @@ public class SupportInteractorImpl implements SupportInteractor {
     }
 
     @Override
-    public Maybe<SuccessStructureResponce> getStructure() {
+    public Maybe<Response<SuccessStructureResponce>> getStructure() {
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.getStructure(token)
                 .subscribeOn(Schedulers.io())
