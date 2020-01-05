@@ -34,29 +34,30 @@ public class OfficePresenter extends MvpPresenter<OfficeView> {
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
                         .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(response -> {
-                            switch (response.getStatus()){
-                                case "400":{
-        //                            ResponseBody responseBody = response.errorBody();
-        //                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                            switch (response.code()){
+                                case 400:{
+                                    ResponseBody responseBody = response.errorBody();
+                                    DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                    showMessage(errorResponse.getError().getMessage());
                                     break;
                                 }
-                                case "200":{
-                                    getViewState().showInformation(response.getData());
-                                    interactor.saveCurrentId(response.getData().getId());
+                                case 200:{
+                                    getViewState().showInformation(response.body().getData());
+                                    interactor.saveCurrentId(response.body().getData().getId());
                                     break;
                                 }
                                 default:{
-        //                            showMessage(response.message());
+                                    showMessage("Unexpected Error");
                                 }
                             }
                         },
                         throwable -> showMessage(throwable.getMessage()),
-                        () -> showMessage("Try to login later")
+                        () -> showMessage("Server timeout")
         ));
     }
 
     public void clearAll() {
-
+        interactor.clearAll();
     }
 
     private void showMessage(String message) {

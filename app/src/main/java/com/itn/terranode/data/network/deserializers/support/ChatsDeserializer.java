@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.itn.terranode.data.network.dtos.Chat;
+import com.itn.terranode.data.network.dtos.ErrorResponse;
 import com.itn.terranode.data.network.dtos.InformationAboutStructure;
 import com.itn.terranode.data.network.dtos.Product;
 import com.itn.terranode.data.network.dtos.SuccessChatsResponce;
@@ -31,6 +32,11 @@ public class ChatsDeserializer implements JsonDeserializer<SuccessChatsResponce>
             for (JsonElement jsonElement : chats) {
                 successResponse.addData( context.deserialize(jsonElement, Chat.class));
             }
+        } else {
+            successResponse.setData(null);
+
+            JsonObject error = jsonObject.getAsJsonObject("error");
+            successResponse.setError(context.deserialize(error, ErrorResponse.class));
         }
 
         return successResponse;

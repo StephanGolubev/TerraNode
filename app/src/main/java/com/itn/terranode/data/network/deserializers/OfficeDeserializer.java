@@ -5,6 +5,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.itn.terranode.data.network.dtos.ErrorResponse;
 import com.itn.terranode.data.network.dtos.InformationAboutNews;
 import com.itn.terranode.data.network.dtos.InformationAboutUser;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
@@ -27,6 +28,11 @@ public class OfficeDeserializer implements JsonDeserializer<SuccessOfficeRespons
             JsonObject news = jsonObject.getAsJsonObject("data");
             successResponse.setData(context.deserialize(news, InformationAboutUser.class));
 
+        } else {
+            successResponse.setData(null);
+
+            JsonObject error = jsonObject.getAsJsonObject("error");
+            successResponse.setError(context.deserialize(error, ErrorResponse.class));
         }
 
         return successResponse;

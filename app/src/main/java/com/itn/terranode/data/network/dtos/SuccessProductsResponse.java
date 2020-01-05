@@ -31,6 +31,10 @@ public class SuccessProductsResponse {
         this.data.add(data);
     }
 
+    public void setData(List<Product> data) {
+        this.data = data;
+    }
+
     public ErrorResponse getError() {
         return error;
     }

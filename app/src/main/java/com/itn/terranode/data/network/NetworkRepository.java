@@ -30,12 +30,16 @@ public interface NetworkRepository {
     @POST("/api/v1/login")
     Maybe<Response<Object>> login(@Body LoginDTO gatewayAuthorizeRequest);
 
-    @GET("/api/v1/user")
-    @Headers("Accept: application/json")
-    Maybe<SuccessOfficeResponse> getInformationAboutUser(@Header("Authorization") String token);
+    @POST("/api/v1/refresh")
+    Maybe<Response<Object>> refreshToken(@Header("Authorization")String token);
 
     @POST("/api/v1/login")
     Maybe<SuccessLogoutResponse> logout(@Header("Authorization")String token);
+
+    @GET("/api/v1/user")
+    @Headers("Accept: application/json")
+    Maybe<Response<SuccessOfficeResponse>> getInformationAboutUser(@Header("Authorization") String token);
+
 
     @GET("/api/v1/news")
     @Headers("Accept: application/json")

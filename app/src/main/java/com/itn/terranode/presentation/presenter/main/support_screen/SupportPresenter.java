@@ -68,12 +68,12 @@ public class SupportPresenter extends MvpPresenter<SupportView> {
                                             break;
                                         }
                                         default:{
-                                            //showMessage(response.message());
+                                            showMessage("Unexpected Error");
                                         }
                                     }
                                 },
                                 throwable -> showMessage(throwable.getMessage()),
-                                () -> showMessage("Try to login later")
+                                () -> showMessage("Server timeout")
                         ));
     }
 
@@ -95,12 +95,12 @@ public class SupportPresenter extends MvpPresenter<SupportView> {
                                             break;
                                         }
                                         default:{
-                                            //showMessage(response.message());
+                                            showMessage("Unexpected Error");
                                         }
                                     }
                                 },
                                 throwable -> showMessage(throwable.getMessage()),
-                                () -> showMessage("Try to login later")
+                                () -> showMessage("Server timeout")
                         ));
     }
 

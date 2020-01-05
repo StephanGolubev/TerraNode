@@ -36,8 +36,7 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
                         .subscribe(response -> {
                     switch (response.getStatus()) {
                         case "400": {
-                            //ResponseBody responseBody = response.errorBody();
-                           // DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+
                             break;
                         }
                         case "200": {
@@ -45,12 +44,12 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
                             break;
                         }
                         default: {
-                            //showMessage(response.message());
+                            showMessage("Unexpected Error");
                         }
                     }
                 },
                 throwable -> showMessage(throwable.getMessage()),
-                () -> showMessage("Try to login later")
+                () -> showMessage("Server timeout")
         ));
     }
 

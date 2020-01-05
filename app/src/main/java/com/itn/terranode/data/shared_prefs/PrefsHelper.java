@@ -32,4 +32,10 @@ public class PrefsHelper {
     public String getId(){
         return sharedPreferences.getString(ID, "");
     }
+
+    public void clearPrefs() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }

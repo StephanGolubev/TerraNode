@@ -6,6 +6,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.itn.terranode.data.network.dtos.ErrorResponse;
 import com.itn.terranode.data.network.dtos.Product;
 import com.itn.terranode.data.network.dtos.SuccessProductsResponse;
 
@@ -27,7 +28,13 @@ public class ProductsDeserializer implements JsonDeserializer<SuccessProductsRes
             for (JsonElement jsonElement : productList) {
                 successResponse.addData(context.deserialize(jsonElement, Product.class));
             }
+        } else {
+            successResponse.setData(null);
+
+            JsonObject error = jsonObject.getAsJsonObject("error");
+            successResponse.setError(context.deserialize(error, ErrorResponse.class));
         }
+
 
         return successResponse;
     }

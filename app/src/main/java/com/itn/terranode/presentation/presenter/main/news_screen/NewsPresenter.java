@@ -41,12 +41,12 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
                                     break;
                                 }
                                 default:{
-                                    //showMessage(response.message());
+                                    showMessage("Unexpected Error");
                                 }
                             }
                         },
                         throwable -> showMessage(throwable.getMessage()),
-                        () -> showMessage("Try to login later")
+                        () -> showMessage("Server timeout")
         ));
     }
 

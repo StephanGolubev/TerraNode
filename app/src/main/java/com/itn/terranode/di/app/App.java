@@ -11,12 +11,14 @@ import com.itn.terranode.di.main.news_screen.NewsComponent;
 import com.itn.terranode.di.main.office_screen.OfficeComponent;
 import com.itn.terranode.di.main.products_screen.ProductsComponent;
 import com.itn.terranode.di.main.support_screen.SupportComponent;
+import com.itn.terranode.di.splash_screen.SplashComponent;
 
 public class App extends Application {
 
     private static App instance;
 
     private AppComponent appComponent;
+    private SplashComponent splashComponent;
     private LoginComponent loginComponent;
     private NewAccountComponent newAccountComponent;
     private OfficeComponent officeComponent;
@@ -111,5 +113,11 @@ public class App extends Application {
 
     public void clearChatComponent() {
         chatComponent = null;
+    }
+
+    public SplashComponent plusSplashComponent() {
+        if (splashComponent == null)
+            splashComponent = appComponent.plusSplashComponent();
+        return splashComponent;
     }
 }

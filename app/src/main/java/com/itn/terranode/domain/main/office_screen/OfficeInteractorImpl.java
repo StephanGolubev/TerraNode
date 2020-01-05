@@ -1,6 +1,8 @@
 package com.itn.terranode.domain.main.office_screen;
 
+import com.google.gson.Gson;
 import com.itn.terranode.data.network.NetworkRepository;
+import com.itn.terranode.data.network.dtos.DetailMessageErrorResponse;
 import com.itn.terranode.data.network.dtos.SuccessLogoutResponse;
 import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
@@ -24,11 +26,13 @@ public class OfficeInteractorImpl implements OfficeInteractor {
     }
 
     @Override
-    public Maybe<SuccessOfficeResponse> getInformationAboutUser() {
+    public Maybe<Response<SuccessOfficeResponse>> getInformationAboutUser() {
         String token = "Bearer " + prefsHelper.getToken();
-        return networkRepository.getInformationAboutUser(token)
+        return networkRepository
+                .getInformationAboutUser(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+
     }
 
     @Override
@@ -43,4 +47,10 @@ public class OfficeInteractorImpl implements OfficeInteractor {
     public void saveCurrentId(String id) {
         prefsHelper.setCurrentId(id);
     }
+
+    @Override
+    public void clearAll() {
+        prefsHelper.clearPrefs();
+    }
+
 }

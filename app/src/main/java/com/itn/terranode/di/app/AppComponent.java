@@ -9,6 +9,7 @@ import com.itn.terranode.di.main.news_screen.NewsComponent;
 import com.itn.terranode.di.main.office_screen.OfficeComponent;
 import com.itn.terranode.di.main.products_screen.ProductsComponent;
 import com.itn.terranode.di.main.support_screen.SupportComponent;
+import com.itn.terranode.di.splash_screen.SplashComponent;
 
 import javax.inject.Singleton;
 
@@ -38,4 +39,6 @@ public interface AppComponent {
     SupportComponent plusSupportComponent();
 
     ChatComponent plusChatComponent();
+
+    SplashComponent plusSplashComponent();
 }

@@ -8,13 +8,13 @@ public class ErrorResponse {
     private String code;
 
     @SerializedName("message")
-    private Message message;
+    private String message;
 
     public String getCode() {
         return code;
     }
 
-    public Message getMessage() {
+    public String getMessage() {
         return message;
     }
 }

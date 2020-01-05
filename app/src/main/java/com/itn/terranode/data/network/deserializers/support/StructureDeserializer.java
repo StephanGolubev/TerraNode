@@ -5,6 +5,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.itn.terranode.data.network.dtos.ErrorResponse;
 import com.itn.terranode.data.network.dtos.InformationAboutStructure;
 import com.itn.terranode.data.network.dtos.SuccessStructureResponce;
 
@@ -25,6 +26,11 @@ public class StructureDeserializer implements JsonDeserializer<SuccessStructureR
             JsonObject data = jsonObject.getAsJsonObject("data");
             JsonObject structure = data.getAsJsonObject("structure");
             successResponse.setData((context.deserialize(structure, InformationAboutStructure.class)));
+        } else {
+            successResponse.setData(null);
+
+            JsonObject error = jsonObject.getAsJsonObject("error");
+            successResponse.setError(context.deserialize(error, ErrorResponse.class));
         }
 
         return successResponse;
