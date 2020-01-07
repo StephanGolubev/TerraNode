@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/full_name"
+            android:inputType="text"
             tools:layout_editor_absoluteX="-16dp"
             tools:layout_editor_absoluteY="396dp" />
 
@@ -74,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
+            android:inputType="text"
             tools:layout_editor_absoluteX="-16dp"
             tools:layout_editor_absoluteY="396dp" />
 
@@ -125,6 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/sponsor_id"
+            android:inputType="text"
             tools:layout_editor_absoluteX="-16dp"
             tools:layout_editor_absoluteY="472dp" />
 

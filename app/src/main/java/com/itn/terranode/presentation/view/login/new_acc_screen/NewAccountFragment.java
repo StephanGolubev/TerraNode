@@ -59,7 +59,7 @@ public class NewAccountFragment extends MvpAppCompatFragment implements NewAccou
 
     @Override
     public void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.newAccountTextView)

@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.view.login.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".presentation.view.main.MainActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".presentation.view.main.chat_screen.ChatActivity"
