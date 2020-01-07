@@ -9,6 +9,7 @@ import com.itn.terranode.presentation.view.main.support_screen.SupportView;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
 import okhttp3.ResponseBody;
@@ -27,10 +28,10 @@ public class SupportPresenter extends MvpPresenter<SupportView> {
     }
 
     public void search(String searchParam) {
-        compositeDisposable.add(
+        final Disposable disposable =
                 interactor
                         .searchUsers(searchParam)
-                        .doOnSubscribe(disposable -> getViewState().showProgressBar())
+                        .doOnSubscribe(disposable1 -> getViewState().showProgressBar())
                         .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(response -> {
                             switch (response.getStatus()){
@@ -48,9 +49,13 @@ public class SupportPresenter extends MvpPresenter<SupportView> {
                                     }
                                 }
                                 },
-                                throwable -> showMessage(throwable.getMessage()),
+                                throwable -> {
+                                    showMessage(throwable.getMessage());
+                                    getViewState().showChatsAndStructure();
+                                },
                                 () -> showMessage("Try to login later")
-                        ));
+                        );
+        compositeDisposable.add(disposable);
     }
 
     public void getChats() {

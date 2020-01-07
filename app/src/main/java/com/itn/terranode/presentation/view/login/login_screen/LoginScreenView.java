@@ -4,11 +4,13 @@ import moxy.MvpView;
 import moxy.viewstate.strategy.AddToEndSingleStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
+@StateStrategyType(AddToEndSingleStrategy.class)
 public interface LoginScreenView extends MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void showToast(String message);
 
-    @StateStrategyType(AddToEndSingleStrategy.class)
     void showMainActivity();
+
+    void setTimer(String expiresIn);
 }

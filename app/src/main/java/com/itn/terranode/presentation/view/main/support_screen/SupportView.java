@@ -23,4 +23,6 @@ public interface SupportView extends MvpView {
     void hideProgressBar();
 
     void showToast(String message);
+
+    void showChatsAndStructure();
 }

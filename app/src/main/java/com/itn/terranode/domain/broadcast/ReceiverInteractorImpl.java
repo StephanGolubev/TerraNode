@@ -1,4 +1,4 @@
-package com.itn.terranode.domain.login.login_screen;
+package com.itn.terranode.domain.broadcast;
 
 import com.itn.terranode.data.network.NetworkRepository;
 import com.itn.terranode.data.network.dtos.LoginDTO;
@@ -12,21 +12,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class LoginInteractorImpl implements LoginInteractor {
+public class ReceiverInteractorImpl implements ReceiverInteractor {
 
     private final NetworkRepository networkRepository;
     private final PrefsHelper prefsHelper;
 
     @Inject
-    LoginInteractorImpl(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
+    ReceiverInteractorImpl(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
         this.networkRepository = networkRepository;
         this.prefsHelper = prefsHelper;
     }
 
-
     @Override
-    public Maybe<Response<Object>> login(String email, String password) {
-        return networkRepository.login(new LoginDTO(email, password))
+    public Maybe<Response<Object>> refreshToken() {
+        String token = "Bearer " + prefsHelper.getToken();
+        return networkRepository.refreshToken(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -37,5 +37,10 @@ public class LoginInteractorImpl implements LoginInteractor {
             prefsHelper.setToken(accessToken);
             return Completable.complete();
         });
+    }
+
+    @Override
+    public void clearPrefs() {
+        prefsHelper.clearPrefs();
     }
 }

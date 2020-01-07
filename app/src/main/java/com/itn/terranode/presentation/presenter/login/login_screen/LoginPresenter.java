@@ -1,10 +1,10 @@
 package com.itn.terranode.presentation.presenter.login.login_screen;
 
 import com.google.gson.Gson;
-import com.itn.terranode.data.network.dtos.DetailMessageErrorResponse;
 import com.itn.terranode.data.network.dtos.LoginSuccessResponse;
 import com.itn.terranode.di.app.App;
 import com.itn.terranode.domain.login.login_screen.LoginInteractor;
+import com.itn.terranode.presentation.view.broadcast.RefreshTokenReceiver;
 import com.itn.terranode.presentation.view.login.login_screen.LoginScreenView;
 
 import javax.inject.Inject;
@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
-import okhttp3.ResponseBody;
 
 @InjectViewState
 public class LoginPresenter extends MvpPresenter<LoginScreenView> {
@@ -34,13 +33,13 @@ public class LoginPresenter extends MvpPresenter<LoginScreenView> {
                         .subscribe(response -> {
                                     switch (response.code()){
                                         case 400:{
-                                            ResponseBody responseBody = response.errorBody();
-                                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
+                                            showMessage("Invalid login or password");
                                             break;
                                         }
                                         case 200:{
                                             LoginSuccessResponse successResponse = new Gson().fromJson(response.body().toString(), LoginSuccessResponse.class);
                                             saveToken(successResponse.getData().getAccessToken());
+                                            getViewState().setTimer(successResponse.getData().getExpiresIn());
                                             getViewState().showMainActivity();
                                             break;
                                         }
@@ -49,12 +48,8 @@ public class LoginPresenter extends MvpPresenter<LoginScreenView> {
                                         }
                                     }
                                 },
-                                throwable -> {
-                                    showMessage(throwable.getMessage());
-                                },
-                                () -> {
-                                    showMessage("Try to login later");
-                                }
+                                throwable -> showMessage(throwable.getMessage()),
+                                () -> showMessage("Try to login later")
                         )
         );
     }

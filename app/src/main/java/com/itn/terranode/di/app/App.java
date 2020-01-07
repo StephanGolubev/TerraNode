@@ -26,6 +26,7 @@ public class App extends Application {
     private NewsComponent newsComponent;
     private SupportComponent supportComponent;
     private ChatComponent chatComponent;
+    private ReceiverComponent receiverComponent;
 
     public static App getInstance() {
         return instance;
@@ -119,5 +120,11 @@ public class App extends Application {
         if (splashComponent == null)
             splashComponent = appComponent.plusSplashComponent();
         return splashComponent;
+    }
+
+    public ReceiverComponent plusReceiverComponent() {
+        if (receiverComponent == null)
+            receiverComponent = appComponent.plusReceiverComponent();
+        return receiverComponent;
     }
 }

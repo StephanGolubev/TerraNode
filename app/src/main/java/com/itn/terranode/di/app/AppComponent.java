@@ -41,4 +41,6 @@ public interface AppComponent {
     ChatComponent plusChatComponent();
 
     SplashComponent plusSplashComponent();
+
+    ReceiverComponent plusReceiverComponent();
 }

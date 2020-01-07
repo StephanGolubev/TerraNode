@@ -33,7 +33,7 @@ public interface NetworkRepository {
     @POST("/api/v1/refresh")
     Maybe<Response<Object>> refreshToken(@Header("Authorization")String token);
 
-    @POST("/api/v1/login")
+    @POST("/api/v1/logout")
     Maybe<SuccessLogoutResponse> logout(@Header("Authorization")String token);
 
     @GET("/api/v1/user")

@@ -10,7 +10,7 @@ public class LoginData {
     @SerializedName("token_type")
     private String tokenType;
 
-    @SerializedName("expiresIn")
+    @SerializedName("expires_in")
     private String expiresIn;
 
     public String getAccessToken() {

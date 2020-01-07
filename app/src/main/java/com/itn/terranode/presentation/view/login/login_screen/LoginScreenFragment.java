@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputEditText;
 import com.itn.terranode.R;
 import com.itn.terranode.presentation.presenter.login.login_screen.LoginPresenter;
+import com.itn.terranode.presentation.view.broadcast.RefreshTokenReceiver;
 import com.itn.terranode.presentation.view.login.LoginActivity;
 import com.itn.terranode.presentation.view.login.new_acc_screen.NewAccountFragment;
 
@@ -72,6 +73,11 @@ public class LoginScreenFragment extends MvpAppCompatFragment implements LoginSc
     @Override
     public void showMainActivity() {
         ((LoginActivity) getActivity()).showMainScreen();
+    }
+
+    @Override
+    public void setTimer(String expiresIn) {
+        RefreshTokenReceiver.setAlarm(getContext(), (int)Float.parseFloat(expiresIn));
     }
 
     @Override

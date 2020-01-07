@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,9 +44,16 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
     RecyclerView correspondenceRecyclerView;
     @BindView(R.id.structureRecyclerView)
     RecyclerView structureRecyclerView;
+    @BindView(R.id.searchRecyclerView)
+    RecyclerView searchRecyclerView;
+    @BindView(R.id.searchScrollView)
+    NestedScrollView searchScrollView;
+    @BindView(R.id.defaultScrollView)
+    NestedScrollView defaultScrollView;
 
     private Unbinder unbinder;
     private UsersAdapter structureAdapter;
+    private UsersAdapter searchAdapter;
     private ChatsAdapter chatsAdapter;
 
     @Nullable
@@ -60,22 +68,31 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
 
     private void initUI(View view) {
         unbinder = ButterKnife.bind(this, view);
+        showChatsAndStructure();
         screenNameTextView.setText(R.string.support);
         searchView.setActivated(true);
         searchView.setQueryHint("Search by name or number");
         searchView.setIconified(false);
         searchView.onActionViewExpanded();
         searchView.clearFocus();
+        searchView.setOnCloseListener(() -> {
+            showChatsAndStructure();
+            return false;
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                presenter.search(query);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                if (QueryValidator.isValid(newText)) {
+                    presenter.search(newText);
+                } else {
+                    showChatsAndStructure();
+                }
+                return true;
             }
         });
 
@@ -83,9 +100,23 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
         structureAdapter = new UsersAdapter();
         structureRecyclerView.setAdapter(structureAdapter);
 
+        searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        searchAdapter = new UsersAdapter();
+        searchRecyclerView.setAdapter(searchAdapter);
+
         correspondenceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         chatsAdapter = new ChatsAdapter();
         correspondenceRecyclerView.setAdapter(chatsAdapter);
+    }
+
+    @Override
+    public void showChatsAndStructure() {
+        defaultScrollView.setVisibility(View.VISIBLE);
+        searchScrollView.setVisibility(View.GONE);
+    }
+    private void showSearch() {
+        defaultScrollView.setVisibility(View.GONE);
+        searchScrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -100,7 +131,8 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
 
     @Override
     public void showSearchResult(List<User> usersList) {
-        showToast("мы что-то нашли");
+        searchAdapter.setUserList(usersList, user -> ((MainActivity) getActivity()).showChatActivityByUserId(user.getId(), user.getName()));
+        showSearch();
     }
 
     @Override
