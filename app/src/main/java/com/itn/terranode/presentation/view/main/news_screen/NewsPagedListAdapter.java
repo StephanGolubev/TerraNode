@@ -18,22 +18,25 @@ import com.itn.terranode.data.network.dtos.NewsItem;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
+public class NewsPagedListAdapter extends PagedListAdapter<NewsItem, NewsPagedListAdapter.NewsViewHolder> {
 
-    private List<NewsItem> newsItems = new ArrayList<>();
-    private OnItemClickListiner listiner;
+    private static final DiffUtil.ItemCallback<NewsItem> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewsItem>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull NewsItem oldItem, @NonNull NewsItem newItem) {
+            return oldItem.getTitle() == newItem.getTitle();
+        }
 
-    void setNews(List<NewsItem> newsItems, OnItemClickListiner listiner){
-        this.newsItems.clear();
-        this.newsItems.addAll(newsItems);
-        this.listiner = listiner;
-        notifyDataSetChanged();
+        @Override
+        public boolean areContentsTheSame(@NonNull NewsItem oldItem, @NonNull NewsItem newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
+
+    protected NewsPagedListAdapter() {
+        super(DIFF_CALLBACK);
     }
 
     @NonNull
@@ -45,16 +48,13 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        holder.bind(newsItems.get(position));
-    }
+        NewsItem item = getItem(position);
+        if(item != null){
+            holder.bind(item);
+        } else {
+//            holder.clear();
+        }
 
-    @Override
-    public int getItemCount() {
-        return newsItems.size();
-    }
-
-    public interface OnItemClickListiner{
-        void onItemClick(NewsItem newsItem);
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
@@ -77,7 +77,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
             String date = outgoingDateFormatter.print(incomeDateFormatter.parseDateTime(newsItem.getCreatedAt()));
             dateTextView.setText(date);
             newsTitleTextView.setText(newsItem.getTitle());
-            newsCardView.setOnClickListener(v -> listiner.onItemClick(newsItem));
+//            newsCardView.setOnClickListener(v -> listiner.onItemClick(newsItem));
         }
     }
 }

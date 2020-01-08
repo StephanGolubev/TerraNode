@@ -10,6 +10,7 @@ import com.itn.terranode.di.main.office_screen.OfficeComponent;
 import com.itn.terranode.di.main.products_screen.ProductsComponent;
 import com.itn.terranode.di.main.support_screen.SupportComponent;
 import com.itn.terranode.di.splash_screen.SplashComponent;
+import com.itn.terranode.presentation.view.main.news_screen.NewsDataSource;
 
 import javax.inject.Singleton;
 
@@ -43,4 +44,6 @@ public interface AppComponent {
     SplashComponent plusSplashComponent();
 
     ReceiverComponent plusReceiverComponent();
+
+    void inject(NewsDataSource newsDataSource);
 }

@@ -10,14 +10,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itn.terranode.R;
 import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.presentation.presenter.main.news_screen.NewsPresenter;
-import com.itn.terranode.presentation.view.main.MainActivity;
-import com.itn.terranode.presentation.view.main.news_detail_screen.NewsDetailFragment;
 
 import java.util.List;
 
@@ -38,7 +37,8 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     private Unbinder unbinder;
-    private NewsAdapter adapter;
+//    private NewsAdapter adapter;
+    private NewsPagedListAdapter pagingAdapter;
 
     @Nullable
     @Override
@@ -53,13 +53,15 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
     private void initUI(View view) {
         unbinder = ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new NewsAdapter();
-        recyclerView.setAdapter(adapter);
+//        adapter = new NewsAdapter();
+        pagingAdapter = new NewsPagedListAdapter();
+        recyclerView.setAdapter(pagingAdapter);
     }
 
     @Override
-    public void showNews(List<NewsItem> newsItems) {
-        adapter.setNews(newsItems, newsItem -> ((MainActivity) getActivity()).showFragment(NewsDetailFragment.newInstance(newsItem.getCreatedAt(), newsItem.getTitle(), newsItem.getText())));
+    public void showNews(PagedList<NewsItem> newsItems) {
+//        adapter.setNews(newsItems, newsItem -> ((MainActivity) getActivity()).showFragment(NewsDetailFragment.newInstance(newsItem.getCreatedAt(), newsItem.getTitle(), newsItem.getText())));
+        pagingAdapter.submitList(newsItems);
     }
 
     @Override

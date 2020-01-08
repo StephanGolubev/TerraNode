@@ -13,6 +13,7 @@ import com.itn.terranode.data.network.dtos.SuccessSearchResponce;
 import com.itn.terranode.data.network.dtos.SuccessStructureResponce;
 
 import io.reactivex.Maybe;
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -44,6 +45,10 @@ public interface NetworkRepository {
     @GET("/api/v1/news")
     @Headers("Accept: application/json")
     Maybe<Response<SuccessNewsResponse>> getNews(@Header("Authorization") String token);
+
+    @GET("/api/v1/news")
+    @Headers("Accept: application/json")
+    Call<SuccessNewsResponse> getPagedNews(@Header("Authorization") String token, @Query("page") long page);
 
     @GET("/api/v1/products")
     @Headers("Accept: application/json")

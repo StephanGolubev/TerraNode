@@ -1,12 +1,16 @@
 package com.itn.terranode.domain.main.news_screen;
 
+import androidx.paging.PagedList;
+
 import com.itn.terranode.data.network.NetworkRepository;
+import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import javax.inject.Inject;
 
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
@@ -28,5 +32,10 @@ public class NewsInteractorImpl implements NewsInteractor{
         return networkRepository.getNews(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<PagedList<NewsItem>> getPagedNews() {
+        return null;
     }
 }
