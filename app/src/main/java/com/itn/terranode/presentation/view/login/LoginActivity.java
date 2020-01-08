@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack("old")
-                .add(R.id.container, fragment)
+                .replace(R.id.container, fragment)
                 .commit();
     }
 

@@ -9,6 +9,9 @@ import com.itn.terranode.di.app.App;
 import com.itn.terranode.domain.login.new_acc_screen.NewAccountInteractor;
 import com.itn.terranode.presentation.view.login.new_acc_screen.NewAccountView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -60,19 +63,14 @@ public class NewAccountPresenter extends MvpPresenter<NewAccountView> {
     private void findErrors(String string) {
         String nahcalnayaStroka = string.replaceAll("\"", "");
 
-        String resultErrorString = "";
-
-        String emailSubstring = "";
-        String passwordSubstring = "";
-        String sponsorId = "";
+        List<String> errorStringList = new ArrayList<>();
 
         if (nahcalnayaStroka.contains("email")) {
             int beginIndex = nahcalnayaStroka.indexOf("email");
             String substring = nahcalnayaStroka.substring(beginIndex);
             beginIndex = substring.indexOf("[");
             int lastIndex = substring.indexOf("]");
-            emailSubstring = substring.substring(beginIndex + 1, lastIndex);
-            resultErrorString = resultErrorString + emailSubstring + "\n";
+            errorStringList.add(substring.substring(beginIndex + 1, lastIndex));
         }
 
         if (nahcalnayaStroka.contains("password")) {
@@ -80,17 +78,7 @@ public class NewAccountPresenter extends MvpPresenter<NewAccountView> {
             String substring = nahcalnayaStroka.substring(beginIndex);
             beginIndex = substring.indexOf("[");
             int lastIndex = substring.indexOf("]");
-            passwordSubstring = substring.substring(beginIndex + 1, lastIndex);
-            resultErrorString = resultErrorString + passwordSubstring + "\n";
-        }
-
-        if (nahcalnayaStroka.contains("password")) {
-            int beginIndex = nahcalnayaStroka.indexOf("password");
-            String substring = nahcalnayaStroka.substring(beginIndex);
-            beginIndex = substring.indexOf("[");
-            int lastIndex = substring.indexOf("]");
-            passwordSubstring = substring.substring(beginIndex + 1, lastIndex);
-            resultErrorString = resultErrorString + passwordSubstring + "\n";
+            errorStringList.add(substring.substring(beginIndex + 1, lastIndex));
         }
 
         if (nahcalnayaStroka.contains("sponsor_id")) {
@@ -98,19 +86,17 @@ public class NewAccountPresenter extends MvpPresenter<NewAccountView> {
             String substring = nahcalnayaStroka.substring(beginIndex);
             beginIndex = substring.indexOf("[");
             int lastIndex = substring.indexOf("]");
-            sponsorId = substring.substring(beginIndex + 1, lastIndex);
-            resultErrorString = resultErrorString + sponsorId + "\n";
+            errorStringList.add(substring.substring(beginIndex + 1, lastIndex));
         }
 
-        if (nahcalnayaStroka.contains("sponsor_id")) {
-            int beginIndex = nahcalnayaStroka.indexOf("sponsor_id");
-            String substring = nahcalnayaStroka.substring(beginIndex);
-            beginIndex = substring.indexOf("[");
-            int lastIndex = substring.indexOf("]");
-            sponsorId = substring.substring(beginIndex + 1, lastIndex);
-            resultErrorString = resultErrorString + sponsorId + "\n";
+        StringBuilder resultErrorString = new StringBuilder();
+        for (int i = 0; i < errorStringList.size(); i++) {
+            if (i!=0){
+                resultErrorString.append("\n");
+            }
+            resultErrorString.append(errorStringList.get(i));
         }
-        showMessage(resultErrorString);
+        showMessage(resultErrorString.toString());
     }
 
     private void showMessage(String message) {
