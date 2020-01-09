@@ -31,32 +31,7 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
 
     public void getNews() {
         compositeDisposable.add(
-//                interactor
-//                        .getNews()
-//                        .doOnSubscribe(disposable -> getViewState().showProgressBar())
-//                        .doAfterTerminate(() -> getViewState().hideProgressBar())
-//                        .subscribe(response -> {
-//                                    switch (response.code()){
-//                                        case 400:{
-//                                            ResponseBody responseBody = response.errorBody();
-//                                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
-//                                            showMessage(errorResponse.getError().getMessage());
-//                                            break;
-//                                        }
-//                                        case 200:{
-//                                            PagedList<NewsItem> newsItems = response.body().getData().getNewsItems();
-//                                            getViewState().showNews(newsItems);
-//                                            break;
-//                                        }
-//                                        default:{
-//                                            showMessage("Unexpected Error");
-//                                        }
-//                                    }
-//                                },
-//                                throwable -> showMessage(throwable.getMessage()),
-//                                () -> showMessage("Server timeout")
-//                        )
-                interactor.getPagedNews().subscribe()
+                interactor.getPagedNews().subscribe(newsItems -> getViewState().showNews(newsItems), throwable -> showMessage(throwable.getMessage()))
         );
     }
 
