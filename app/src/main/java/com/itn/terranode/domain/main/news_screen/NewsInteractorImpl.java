@@ -41,9 +41,9 @@ public class NewsInteractorImpl implements NewsInteractor{
     public Observable<PagedList<NewsItem>> getPagedNews() {
         NewsDataSourceFactory newsDataSourceFactory = new NewsDataSourceFactory(networkRepository, prefsHelper);
         PagedList.Config config = new PagedList.Config.Builder()
-                .setPageSize(12)
                 .build();
-        return new RxPagedListBuilder(newsDataSourceFactory, config)
+        Observable<PagedList<NewsItem>> data = new RxPagedListBuilder(newsDataSourceFactory, config)
                 .buildObservable();
+        return data;
     }
 }

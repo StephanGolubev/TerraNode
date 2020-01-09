@@ -14,7 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewsDataSource extends PageKeyedDataSource<Long, NewsItem> {
+public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
 
     private NetworkRepository networkRepository;
     private PrefsHelper prefsHelper;
@@ -25,44 +25,55 @@ public class NewsDataSource extends PageKeyedDataSource<Long, NewsItem> {
     }
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<Long, NewsItem> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, NewsItem> callback) {
         String token = "Bearer " + prefsHelper.getToken();
-        networkRepository.getPagedNews(token, 1).enqueue(new Callback<SuccessNewsResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
-                callback.onResult(response.body().getData().getNewsItems(),
-                        response.body().getData().getCurrentPage(),//position
-                        response.body().getData().getTotal(),//totalCount
-                        response.body().getData().getCurrentPage() - 1L,
-                        response.body().getData().getCurrentPage() + 1L
+        networkRepository
+                .getPagedNews(token, 1)
+                .enqueue(
+                        new Callback<SuccessNewsResponse>() {
+                            @Override
+                            public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
+                                if (response.body() != null) {
+                                    callback.onResult(response.body().getData().getNewsItems(),
+                                            response.body().getData().getCurrentPage(),//position
+                                            response.body().getData().getTotal(),//totalCount
+                                            response.body().getData().getCurrentPage() - 1,
+                                            response.body().getData().getCurrentPage() + 1
+                                    );
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NotNull Call<SuccessNewsResponse> call, @NotNull Throwable t) {
+
+                            }
+                        }
                 );
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<SuccessNewsResponse> call, @NotNull Throwable t) {
-
-            }
-        });
     }
 
     @Override
-    public void loadBefore(@NonNull LoadParams<Long> params, @NonNull LoadCallback<Long, NewsItem> callback) {
-
-    }
-
-    @Override
-    public void loadAfter(@NonNull LoadParams<Long> params, @NonNull LoadCallback<Long, NewsItem> callback) {
+    public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, NewsItem> callback) {
         String token = "Bearer " + prefsHelper.getToken();
-        networkRepository.getPagedNews(token, 1).enqueue(new Callback<SuccessNewsResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
-                callback.onResult(response.body().getData().getNewsItems(), params.key + 1);
-            }
+        token.isEmpty();
+    }
 
-            @Override
-            public void onFailure(Call<SuccessNewsResponse> call, Throwable t) {
+    @Override
+    public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, NewsItem> callback) {
+        String token = "Bearer " + prefsHelper.getToken();
+        networkRepository
+                .getPagedNews(token, params.key)
+                .enqueue(
+                        new Callback<SuccessNewsResponse>() {
+                                @Override
+                                public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
+                                    callback.onResult(response.body().getData().getNewsItems(), params.key + 1);
+                                }
 
-            }
-        });
+                                @Override
+                                public void onFailure(Call<SuccessNewsResponse> call, Throwable t) {
+
+                                }
+                        }
+                );
     }
 }

@@ -8,7 +8,7 @@ import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 
-public class NewsDataSourceFactory extends DataSource.Factory<Long, NewsItem> {
+public class NewsDataSourceFactory extends DataSource.Factory<Integer, NewsItem> {
 
     private final NetworkRepository networkRepository;
     private final PrefsHelper prefsHelper;
@@ -20,7 +20,7 @@ public class NewsDataSourceFactory extends DataSource.Factory<Long, NewsItem> {
 
     @NonNull
     @Override
-    public DataSource<Long, NewsItem> create() {
+    public DataSource<Integer, NewsItem> create() {
         return new NewsDataSource(networkRepository, prefsHelper);
     }
 }
