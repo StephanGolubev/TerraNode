@@ -39,16 +39,11 @@ public class NewsInteractorImpl implements NewsInteractor{
 
     @Override
     public Observable<PagedList<NewsItem>> getPagedNews() {
-        NewsDataSourceFactory newsDataSourceFactory = new NewsDataSourceFactory();
-//        NewsDataSource newsDataSource = newsDataSourceFactory.create();
-//        String token = "Bearer " + prefsHelper.getToken();
-////        return networkRepository.getNews(token)
-////                .subscribeOn(Schedulers.io())
-////                .observeOn(AndroidSchedulers.mainThread());
+        NewsDataSourceFactory newsDataSourceFactory = new NewsDataSourceFactory(networkRepository, prefsHelper);
         PagedList.Config config = new PagedList.Config.Builder()
                 .setPageSize(12)
                 .build();
-        return new RxPagedListBuilder<>(newsDataSourceFactory, config)
+        return new RxPagedListBuilder(newsDataSourceFactory, config)
                 .buildObservable();
     }
 }

@@ -8,7 +8,7 @@ import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
-import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,27 +16,30 @@ import retrofit2.Response;
 
 public class NewsDataSource extends PageKeyedDataSource<Long, NewsItem> {
 
-    @Inject
-    NetworkRepository networkRepository;
-    @Inject
-    PrefsHelper prefsHelper;
+    private NetworkRepository networkRepository;
+    private PrefsHelper prefsHelper;
+
+    public NewsDataSource(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
+        this.networkRepository = networkRepository;
+        this.prefsHelper = prefsHelper;
+    }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<Long, NewsItem> callback) {
         String token = "Bearer " + prefsHelper.getToken();
         networkRepository.getPagedNews(token, 1).enqueue(new Callback<SuccessNewsResponse>() {
             @Override
-            public void onResponse(Call<SuccessNewsResponse> call, Response<SuccessNewsResponse> response) {
+            public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
                 callback.onResult(response.body().getData().getNewsItems(),
-                        response.body().getData().getCurrentPage(),
-                        response.body().getData().getTotal(),
+                        response.body().getData().getCurrentPage(),//position
+                        response.body().getData().getTotal(),//totalCount
                         response.body().getData().getCurrentPage() - 1L,
                         response.body().getData().getCurrentPage() + 1L
                 );
             }
 
             @Override
-            public void onFailure(Call<SuccessNewsResponse> call, Throwable t) {
+            public void onFailure(@NotNull Call<SuccessNewsResponse> call, @NotNull Throwable t) {
 
             }
         });
@@ -52,7 +55,7 @@ public class NewsDataSource extends PageKeyedDataSource<Long, NewsItem> {
         String token = "Bearer " + prefsHelper.getToken();
         networkRepository.getPagedNews(token, 1).enqueue(new Callback<SuccessNewsResponse>() {
             @Override
-            public void onResponse(Call<SuccessNewsResponse> call, Response<SuccessNewsResponse> response) {
+            public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
                 callback.onResult(response.body().getData().getNewsItems(), params.key + 1);
             }
 

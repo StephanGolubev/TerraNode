@@ -13,31 +13,31 @@ public class InformationAboutNews {
     private List<NewsItem> newsItems = new ArrayList<>();
 
     @SerializedName("first_page_url")
-    private String first_page_url;
+    private String firstPageUrl;
 
     @SerializedName("from")
-    private String from;
+    private int from;
 
     @SerializedName("last_page")
-    private String last_page;
+    private int lastPage;
 
     @SerializedName("last_page_url")
-    private String last_page_url;
+    private String lastPageUrl;
 
     @SerializedName("next_page_url")
-    private String next_page_url;
+    private String nextPageUrl;
 
     @SerializedName("path")
     private String path;
 
     @SerializedName("per_page")
-    private String per_page;
+    private int perPage;
 
     @SerializedName("prev_page_url")
-    private String prev_page_url;
+    private String prevPageUrl;
 
     @SerializedName("to")
-    private String to;
+    private int to;
 
     @SerializedName("total")
     private int total;
@@ -58,43 +58,87 @@ public class InformationAboutNews {
         return currentPage;
     }
 
-    public String getFirst_page_url() {
-        return first_page_url;
+    public String getFirstPageUrl() {
+        return firstPageUrl;
     }
 
-    public String getFrom() {
+    public int getFrom() {
         return from;
     }
 
-    public String getLast_page() {
-        return last_page;
+    public int getLastPage() {
+        return lastPage;
     }
 
-    public String getLast_page_url() {
-        return last_page_url;
+    public String getLastPageUrl() {
+        return lastPageUrl;
     }
 
-    public String getNext_page_url() {
-        return next_page_url;
+    public String getNextPageUrl() {
+        return nextPageUrl;
     }
 
     public String getPath() {
         return path;
     }
 
-    public String getPer_page() {
-        return per_page;
+    public int getPerPage() {
+        return perPage;
     }
 
-    public String getPrev_page_url() {
-        return prev_page_url;
+    public String getPrevPageUrl() {
+        return prevPageUrl;
     }
 
-    public String getTo() {
+    public int getTo() {
         return to;
     }
 
     public int getTotal() {
         return total;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public void setFirstPageUrl(String firstPageUrl) {
+        this.firstPageUrl = firstPageUrl;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public void setLastPage(int lastPage) {
+        this.lastPage = lastPage;
+    }
+
+    public void setLastPageUrl(String lastPageUrl) {
+        this.lastPageUrl = lastPageUrl;
+    }
+
+    public void setNextPageUrl(String nextPageUrl) {
+        this.nextPageUrl = nextPageUrl;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setPerPage(int perPage) {
+        this.perPage = perPage;
+    }
+
+    public void setPrevPageUrl(String prevPageUrl) {
+        this.prevPageUrl = prevPageUrl;
+    }
+
+    public void setTo(int to) {
+        this.to = to;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }

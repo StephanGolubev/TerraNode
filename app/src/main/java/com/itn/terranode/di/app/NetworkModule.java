@@ -59,7 +59,7 @@ public class NetworkModule {
                 .registerTypeAdapter(SuccessOfficeResponse.class, new OfficeDeserializer())
                 .registerTypeAdapter(SuccessProductsResponse.class, new ProductsDeserializer())
                 .registerTypeAdapter(SuccessNewsResponse.class, new NewsDeserializer())
-                .registerTypeAdapter(InformationAboutNews.class, new InformationAboutNewsDeserializer())
+//                .registerTypeAdapter(InformationAboutNews.class, new InformationAboutNewsDeserializer())
                 .registerTypeAdapter(InformationAboutMessages.class, new InformationAboutMessagesDeserializer())
                 .registerTypeAdapter(SuccessSearchResponce.class, new SearchDeserializer())
                 .registerTypeAdapter(SuccessStructureResponce.class, new StructureDeserializer())

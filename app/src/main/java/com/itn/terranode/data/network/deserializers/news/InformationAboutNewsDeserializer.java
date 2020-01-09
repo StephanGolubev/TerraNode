@@ -19,9 +19,11 @@ public class InformationAboutNewsDeserializer implements JsonDeserializer<Inform
         InformationAboutNews informationAboutNews = new InformationAboutNews();
         JsonObject newsJsonObject = jsonObject.getAsJsonObject("news");
         JsonArray jsonElements = newsJsonObject.getAsJsonArray("data");
+
         for (JsonElement jsonElement: jsonElements) {
             informationAboutNews.addNewsItems(context.deserialize(jsonElement, NewsItem.class));
         }
+
         return informationAboutNews;
     }
 }
