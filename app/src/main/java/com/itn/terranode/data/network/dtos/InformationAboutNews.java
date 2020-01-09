@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InformationAboutNews {
     @SerializedName("current_page")
-    private String currentPage;
+    private int currentPage;
 
     @SerializedName("data")
     private List<NewsItem> newsItems = new ArrayList<>();
@@ -40,7 +40,7 @@ public class InformationAboutNews {
     private String to;
 
     @SerializedName("total")
-    private String total;
+    private int total;
 
     public List<NewsItem> getNewsItems() {
         return newsItems;
@@ -52,5 +52,49 @@ public class InformationAboutNews {
 
     public void addNewsItems(NewsItem newsItem) {
         this.newsItems.add(newsItem);
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public String getFirst_page_url() {
+        return first_page_url;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getLast_page() {
+        return last_page;
+    }
+
+    public String getLast_page_url() {
+        return last_page_url;
+    }
+
+    public String getNext_page_url() {
+        return next_page_url;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getPer_page() {
+        return per_page;
+    }
+
+    public String getPrev_page_url() {
+        return prev_page_url;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public int getTotal() {
+        return total;
     }
 }

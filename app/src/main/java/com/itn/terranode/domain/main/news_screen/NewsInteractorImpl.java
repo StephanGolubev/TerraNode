@@ -1,11 +1,14 @@
 package com.itn.terranode.domain.main.news_screen;
 
 import androidx.paging.PagedList;
+import androidx.paging.RxPagedListBuilder;
 
 import com.itn.terranode.data.network.NetworkRepository;
 import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
+import com.itn.terranode.presentation.view.main.news_screen.NewsDataSource;
+import com.itn.terranode.presentation.view.main.news_screen.NewsDataSourceFactory;
 
 import javax.inject.Inject;
 
@@ -36,6 +39,16 @@ public class NewsInteractorImpl implements NewsInteractor{
 
     @Override
     public Observable<PagedList<NewsItem>> getPagedNews() {
-        return null;
+        NewsDataSourceFactory newsDataSourceFactory = new NewsDataSourceFactory();
+//        NewsDataSource newsDataSource = newsDataSourceFactory.create();
+//        String token = "Bearer " + prefsHelper.getToken();
+////        return networkRepository.getNews(token)
+////                .subscribeOn(Schedulers.io())
+////                .observeOn(AndroidSchedulers.mainThread());
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setPageSize(12)
+                .build();
+        return new RxPagedListBuilder<>(newsDataSourceFactory, config)
+                .buildObservable();
     }
 }

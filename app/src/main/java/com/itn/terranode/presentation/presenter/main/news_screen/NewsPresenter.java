@@ -31,7 +31,9 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
 
     public void getNews() {
         compositeDisposable.add(
-                interactor.getPagedNews().subscribe(newsItems -> getViewState().showNews(newsItems), throwable -> showMessage(throwable.getMessage()))
+                interactor
+                        .getPagedNews()
+                        .subscribe(newsItems -> getViewState().showNews(newsItems), throwable -> showMessage(throwable.getMessage()))
         );
     }
 
