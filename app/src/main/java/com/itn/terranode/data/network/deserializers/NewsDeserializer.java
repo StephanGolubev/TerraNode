@@ -1,6 +1,5 @@
-package com.itn.terranode.data.network.deserializers.news;
+package com.itn.terranode.data.network.deserializers;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -8,9 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.itn.terranode.data.network.dtos.ErrorResponse;
 import com.itn.terranode.data.network.dtos.InformationAboutNews;
-import com.itn.terranode.data.network.dtos.Product;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
-import com.itn.terranode.data.network.dtos.SuccessProductsResponse;
 
 import java.lang.reflect.Type;
 
