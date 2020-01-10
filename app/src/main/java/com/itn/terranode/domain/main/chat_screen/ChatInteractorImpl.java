@@ -1,15 +1,17 @@
 package com.itn.terranode.domain.main.chat_screen;
 
+import androidx.paging.PagedList;
+import androidx.paging.RxPagedListBuilder;
+
 import com.itn.terranode.data.network.NetworkRepository;
-import com.itn.terranode.data.network.dtos.SuccessChatsResponce;
-import com.itn.terranode.data.network.dtos.SuccessCreateChatResponce;
-import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponce;
+import com.itn.terranode.data.network.dtos.ChatMessage;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
+import com.itn.terranode.presentation.view.main.chat_screen.ChatDataSourceFactory;
 
 import javax.inject.Inject;
 
 import io.reactivex.Maybe;
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
@@ -27,21 +29,24 @@ public class ChatInteractorImpl implements ChatInteractor {
     }
 
     @Override
-    public Maybe<Response<SuccessGetMessageFromChatResponce>>  createChat(String userId) {
+    public Observable<PagedList<ChatMessage>> createChat(String userId) {
         String token = "Bearer " + prefsHelper.getToken();
         return networkRepository.createChat(token, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(successCreateChatResponce -> getMessages(successCreateChatResponce.body().getData()));
+                .flatMapObservable(response -> getPagedMessages(response.body().getData()));
     }
 
     @Override
-    public Maybe<Response<SuccessGetMessageFromChatResponce>>  getMessages(String chatId) {
+    public Observable<PagedList<ChatMessage>> getPagedMessages(String chatId) {
         this.chatId = chatId;
-        String token = "Bearer " + prefsHelper.getToken();
-        return networkRepository.getMessageFromChat(token, chatId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        ChatDataSourceFactory chatDataSourceFactory = new ChatDataSourceFactory(networkRepository, prefsHelper, chatId);
+        PagedList.Config config = (new PagedList.Config.Builder())
+                .setEnablePlaceholders(false)
+                .setPageSize(20)
+                .build();
+        return new RxPagedListBuilder(chatDataSourceFactory, config)
+                .buildObservable();
     }
 
     @Override

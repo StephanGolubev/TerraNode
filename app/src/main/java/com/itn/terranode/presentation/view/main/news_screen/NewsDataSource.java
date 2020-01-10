@@ -41,8 +41,8 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
                                     callback.onResult(response.body().getData().getNewsItems(),
                                             response.body().getData().getCurrentPage(),//position
                                             response.body().getData().getTotal(),//totalCount
-                                            response.body().getData().getCurrentPage() - 1,
-                                            response.body().getData().getCurrentPage() + 1
+                                            null,
+                                            response.body().getData().getCurrentPage() == 1 ? null: response.body().getData().getCurrentPage() + 1
                                     );
                                 }
                             }
@@ -69,11 +69,13 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
                         new Callback<SuccessNewsResponse>() {
                                 @Override
                                 public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
-                                    callback.onResult(response.body().getData().getNewsItems(), params.key + 1);
+                                    if (response.body() != null) {
+                                        callback.onResult(response.body().getData().getNewsItems(), params.key + 1);
+                                    }
                                 }
 
                                 @Override
-                                public void onFailure(Call<SuccessNewsResponse> call, Throwable t) {
+                                public void onFailure(@NotNull Call<SuccessNewsResponse> call, @NotNull Throwable t) {
                                     callback.onError(t);
                                 }
                         }

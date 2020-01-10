@@ -7,7 +7,6 @@ import com.itn.terranode.data.network.NetworkRepository;
 import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
-
 public class NewsDataSourceFactory extends DataSource.Factory<Integer, NewsItem> {
 
     private final NetworkRepository networkRepository;

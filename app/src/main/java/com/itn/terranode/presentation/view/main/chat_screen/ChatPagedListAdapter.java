@@ -9,10 +9,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itn.terranode.R;
 import com.itn.terranode.data.network.dtos.ChatMessage;
+import com.itn.terranode.data.network.dtos.NewsItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +24,27 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+public class ChatPagedListAdapter extends PagedListAdapter<ChatMessage, ChatPagedListAdapter.ChatViewHolder> {
 
-class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     private List<ChatMessage> chatsList = new ArrayList<>();
     private String currentId;
     private String userName = "";
 
-    void setChatMessageList(List<ChatMessage> chatsList, String currentId, String userName) {
-        this.chatsList.clear();
-        this.chatsList.addAll(chatsList);
-        this.currentId = currentId;
-        this.userName = userName;
-        notifyDataSetChanged();
+    private static final DiffUtil.ItemCallback<ChatMessage> DIFF_CALLBACK = new DiffUtil.ItemCallback<ChatMessage>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull ChatMessage oldItem, @NonNull ChatMessage newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull ChatMessage oldItem, @NonNull ChatMessage newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
+
+    ChatPagedListAdapter() {
+        super(DIFF_CALLBACK);
     }
 
     @NonNull
@@ -44,12 +56,10 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        holder.bind(chatsList.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return chatsList.size();
+        ChatMessage item = getItem(position);
+        if(item != null) {
+            holder.bind(item);
+        }
     }
 
     public class ChatViewHolder extends RecyclerView.ViewHolder {
@@ -86,4 +96,11 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
             }
         }
     }
+
+    void setChatMessageList(String currentId, String userName) {
+        this.currentId = currentId;
+        this.userName = userName;
+        notifyDataSetChanged();
+    }
 }
+

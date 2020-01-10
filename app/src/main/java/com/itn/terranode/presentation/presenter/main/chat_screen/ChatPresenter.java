@@ -1,6 +1,9 @@
 package com.itn.terranode.presentation.presenter.main.chat_screen;
 
+import androidx.paging.PagedList;
+
 import com.google.gson.Gson;
+import com.itn.terranode.data.network.dtos.ChatMessage;
 import com.itn.terranode.data.network.dtos.DetailMessageErrorResponse;
 import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponce;
 import com.itn.terranode.di.app.App;
@@ -50,15 +53,12 @@ public class ChatPresenter extends MvpPresenter<ChatView> {
     public void getMessages(String chatId) {
         compositeDisposable.add(
                 interactor
-                        .getMessages(chatId)
+                        .getPagedMessages(chatId)
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
                         .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(
                                 this::showResult,
-                                throwable -> showMessage(throwable.getMessage()),
-                                () -> {
-
-                                }
+                                throwable -> showMessage(throwable.getMessage())
                         )
         );
     }
@@ -92,22 +92,8 @@ public class ChatPresenter extends MvpPresenter<ChatView> {
         );
     }
 
-    private void showResult(Response<SuccessGetMessageFromChatResponce> response) throws IOException {
-        switch (response.code()) {
-            case 400: {
-                ResponseBody responseBody = response.errorBody();
-                DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
-                showMessage(errorResponse.getError().getMessage());
-                break;
-            }
-            case 200: {
-                getViewState().showChat(response.body().getData().getChatMessages(), interactor.getCurrentId());
-                break;
-            }
-            default: {
-                showMessage("Unexpected Error");
-            }
-        }
+    private void showResult(PagedList<ChatMessage> response) {
+        getViewState().showChat(response, interactor.getCurrentId());
     }
 
     private void showMessage(String message) {

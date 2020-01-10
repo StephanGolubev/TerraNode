@@ -10,7 +10,6 @@ import io.reactivex.Observable;
 import retrofit2.Response;
 
 public interface NewsInteractor {
-    Maybe<Response<SuccessNewsResponse>> getNews();
 
     Observable<PagedList<NewsItem>> getPagedNews();
 }

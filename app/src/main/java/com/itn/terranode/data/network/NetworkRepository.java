@@ -54,10 +54,6 @@ public interface NetworkRepository {
     @Headers("Accept: application/json")
     Maybe<Response<SuccessProductsResponse>> getProducts(@Header("Authorization") String token);
 
-    @GET("/api/v1/products")
-    @Headers("Accept: application/json")
-    Call<SuccessProductsResponse> getPagedProducts(@Header("Authorization") String token, @Query("page") long page);
-
     @GET("api/v1/structure")
     @Headers("Accept: application/json")
     Maybe<Response<SuccessStructureResponce>> getStructure(@Header("Authorization") String token);
@@ -77,4 +73,7 @@ public interface NetworkRepository {
 
     @GET("/api/v1/chat/{chatId}/message")
     Maybe<Response<SuccessGetMessageFromChatResponce>> getMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id);
+
+    @GET("/api/v1/chat/{chatId}/message")
+    Call<SuccessGetMessageFromChatResponce> getPagedMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("page") long page);
 }

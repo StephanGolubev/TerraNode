@@ -1,10 +1,5 @@
 package com.itn.terranode.presentation.presenter.main.news_screen;
 
-import androidx.paging.PagedList;
-
-import com.google.gson.Gson;
-import com.itn.terranode.data.network.dtos.DetailMessageErrorResponse;
-import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.di.app.App;
 import com.itn.terranode.domain.main.news_screen.NewsInteractor;
 import com.itn.terranode.presentation.view.main.news_screen.NewsView;
