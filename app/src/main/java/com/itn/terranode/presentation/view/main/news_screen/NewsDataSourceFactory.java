@@ -24,11 +24,3 @@ public class NewsDataSourceFactory extends DataSource.Factory<Integer, NewsItem>
         return new NewsDataSource(networkRepository, prefsHelper);
     }
 }
-//extends
-//} DataSource.Factory {
-//    @NonNull
-//    @Override
-//    public DataSource create() {
-//        return null;
-//    }
-//}

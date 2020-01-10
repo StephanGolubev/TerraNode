@@ -20,8 +20,6 @@ import com.itn.terranode.presentation.presenter.main.news_screen.NewsPresenter;
 import com.itn.terranode.presentation.view.main.MainActivity;
 import com.itn.terranode.presentation.view.main.news_detail_screen.NewsDetailFragment;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -39,7 +37,6 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     private Unbinder unbinder;
-//    private NewsAdapter adapter;
     private NewsPagedListAdapter pagingAdapter;
 
     @Nullable
@@ -47,7 +44,7 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         initUI(view);
-        screenNameTextView.setText("News");
+        screenNameTextView.setText(R.string.news);
         presenter.getNews();
         return view;
     }
@@ -55,8 +52,7 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
     private void initUI(View view) {
         unbinder = ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        adapter = new NewsAdapter();
-        pagingAdapter = new NewsPagedListAdapter();
+        pagingAdapter = new NewsPagedListAdapter(newsItem -> ((MainActivity) getActivity()).showFragment(NewsDetailFragment.newInstance(newsItem.getCreatedAt(), newsItem.getTitle(), newsItem.getText())));
         recyclerView.setAdapter(pagingAdapter);
     }
 
@@ -82,6 +78,7 @@ public class NewsFragment extends MvpAppCompatFragment implements NewsView {
 
     @Override
     public void onDestroy() {
+        unbinder.unbind();
         presenter.destroy();
         super.onDestroy();
     }

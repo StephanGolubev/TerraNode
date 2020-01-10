@@ -10,6 +10,9 @@ import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +30,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, NewsItem> callback) {
         String token = "Bearer " + prefsHelper.getToken();
+
         networkRepository
                 .getPagedNews(token, 1)
                 .enqueue(
@@ -53,8 +57,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
 
     @Override
     public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, NewsItem> callback) {
-        String token = "Bearer " + prefsHelper.getToken();
-        token.isEmpty();
+      //not used
     }
 
     @Override

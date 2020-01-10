@@ -7,7 +7,6 @@ import com.itn.terranode.data.network.NetworkRepository;
 import com.itn.terranode.data.network.dtos.NewsItem;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
-import com.itn.terranode.presentation.view.main.news_screen.NewsDataSource;
 import com.itn.terranode.presentation.view.main.news_screen.NewsDataSourceFactory;
 
 import javax.inject.Inject;
@@ -40,10 +39,11 @@ public class NewsInteractorImpl implements NewsInteractor{
     @Override
     public Observable<PagedList<NewsItem>> getPagedNews() {
         NewsDataSourceFactory newsDataSourceFactory = new NewsDataSourceFactory(networkRepository, prefsHelper);
-        PagedList.Config config = new PagedList.Config.Builder()
+        PagedList.Config config = (new PagedList.Config.Builder())
+                .setEnablePlaceholders(false)
+                .setPageSize(12)
                 .build();
-        Observable<PagedList<NewsItem>> data = new RxPagedListBuilder(newsDataSourceFactory, config)
+        return new RxPagedListBuilder(newsDataSourceFactory, config)
                 .buildObservable();
-        return data;
     }
 }

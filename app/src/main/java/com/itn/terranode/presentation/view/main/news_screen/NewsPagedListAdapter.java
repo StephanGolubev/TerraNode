@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.paging.PagedListAdapter;
-import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +22,12 @@ import butterknife.ButterKnife;
 
 public class NewsPagedListAdapter extends PagedListAdapter<NewsItem, NewsPagedListAdapter.NewsViewHolder> {
 
+    private NewsPagedListAdapter.OnItemClickListiner listiner;
+
+    public interface OnItemClickListiner{
+        void onItemClick(NewsItem newsItem);
+    }
+
     private static final DiffUtil.ItemCallback<NewsItem> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewsItem>() {
         @Override
         public boolean areItemsTheSame(@NonNull NewsItem oldItem, @NonNull NewsItem newItem) {
@@ -35,8 +40,9 @@ public class NewsPagedListAdapter extends PagedListAdapter<NewsItem, NewsPagedLi
         }
     };
 
-    protected NewsPagedListAdapter() {
+    NewsPagedListAdapter(NewsPagedListAdapter.OnItemClickListiner listiner) {
         super(DIFF_CALLBACK);
+        this.listiner = listiner;
     }
 
     @NonNull
@@ -51,10 +57,7 @@ public class NewsPagedListAdapter extends PagedListAdapter<NewsItem, NewsPagedLi
         NewsItem item = getItem(position);
         if(item != null){
             holder.bind(item);
-        } else {
-//            holder.clear();
         }
-
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
@@ -77,7 +80,7 @@ public class NewsPagedListAdapter extends PagedListAdapter<NewsItem, NewsPagedLi
             String date = outgoingDateFormatter.print(incomeDateFormatter.parseDateTime(newsItem.getCreatedAt()));
             dateTextView.setText(date);
             newsTitleTextView.setText(newsItem.getTitle());
-//            newsCardView.setOnClickListener(v -> listiner.onItemClick(newsItem));
+            newsCardView.setOnClickListener(v -> listiner.onItemClick(newsItem));
         }
     }
 }
