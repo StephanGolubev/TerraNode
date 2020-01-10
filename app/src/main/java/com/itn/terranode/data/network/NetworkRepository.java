@@ -54,6 +54,10 @@ public interface NetworkRepository {
     @Headers("Accept: application/json")
     Maybe<Response<SuccessProductsResponse>> getProducts(@Header("Authorization") String token);
 
+    @GET("/api/v1/products")
+    @Headers("Accept: application/json")
+    Call<SuccessProductsResponse> getPagedProducts(@Header("Authorization") String token, @Query("page") long page);
+
     @GET("api/v1/structure")
     @Headers("Accept: application/json")
     Maybe<Response<SuccessStructureResponce>> getStructure(@Header("Authorization") String token);

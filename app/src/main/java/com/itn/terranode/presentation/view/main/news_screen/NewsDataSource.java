@@ -49,7 +49,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
 
                             @Override
                             public void onFailure(@NotNull Call<SuccessNewsResponse> call, @NotNull Throwable t) {
-
+                                callback.onError(t);
                             }
                         }
                 );
@@ -74,7 +74,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
 
                                 @Override
                                 public void onFailure(Call<SuccessNewsResponse> call, Throwable t) {
-
+                                    callback.onError(t);
                                 }
                         }
                 );
