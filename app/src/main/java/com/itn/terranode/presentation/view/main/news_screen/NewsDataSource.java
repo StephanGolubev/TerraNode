@@ -35,10 +35,16 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
                             @Override
                             public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
                                 if (response.body() != null) {
-                                    callback.onResult(response.body().getData().getNewsItems(),
-                                            null,
-                                            response.body().getData().getCurrentPage() == 1 ? null: response.body().getData().getCurrentPage() + 1
-                                    );
+                                    if(response.body().getData().getNewsItems().size() > 0) {
+                                        callback.onResult(response.body().getData().getNewsItems(),
+                                                response.body().getData().getFrom() - 1,//position
+                                                response.body().getData().getTotal(),//totalCount
+                                                null,
+                                                response.body().getData().getLastPage() == 1 ? null : response.body().getData().getCurrentPage() + 1
+                                        );
+                                    } else {
+                                        callback.onResult(response.body().getData().getNewsItems(), null,null);
+                                    }
                                 }
                             }
 

@@ -91,26 +91,11 @@ public class SupportPresenter extends MvpPresenter<SupportView> {
                 interactor
                         .getStructure()
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
-                        .doAfterTerminate(() -> getViewState().hideProgressBar())
-                        .subscribe(response -> {
-                                    switch (response.code()){
-                                        case 400:{
-                                            ResponseBody responseBody = response.errorBody();
-                                            DetailMessageErrorResponse errorResponse = new Gson().fromJson(responseBody.string(), DetailMessageErrorResponse.class);
-                                            showMessage(errorResponse.getError().getMessage());
-                                            break;
-                                        }
-                                        case 200:{
-                                            getViewState().showStructure(response.body().getData().getUsers());
-                                            break;
-                                        }
-                                        default:{
-                                            showMessage("Unexpected Error");
-                                        }
-                                    }
+                        .subscribe(users -> {
+                                    getViewState().hideProgressBar();
+                                    getViewState().showStructure(users);
                                 },
-                                throwable -> showMessage(throwable.getMessage()),
-                                () -> showMessage("Server timeout")
+                                throwable -> showMessage(throwable.getMessage())
                         ));
     }
 

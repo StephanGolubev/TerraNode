@@ -20,7 +20,7 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
     private PrefsHelper prefsHelper;
     private String chatId;
 
-    public ChatDataSource(NetworkRepository networkRepository, PrefsHelper prefsHelper, String chatId) {
+    ChatDataSource(NetworkRepository networkRepository, PrefsHelper prefsHelper, String chatId) {
         this.networkRepository = networkRepository;
         this.prefsHelper = prefsHelper;
         this.chatId = chatId;
@@ -37,10 +37,16 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
                             @Override
                             public void onResponse(@NotNull Call<SuccessGetMessageFromChatResponse> call, @NotNull Response<SuccessGetMessageFromChatResponse> response) {
                                 if (response.body() != null) {
-                                    callback.onResult(response.body().getData().getChatMessages(),
-                                            null,
-                                            response.body().getData().getCurrentPage() == 1 ? null: response.body().getData().getCurrentPage() + 1
-                                    );
+                                    if(response.body().getData().getChatMessages().size() > 0){
+                                        callback.onResult(response.body().getData().getChatMessages(),
+                                                response.body().getData().getFrom() - 1,//position
+                                                response.body().getData().getTotal(),//totalCount
+                                                null,
+                                                response.body().getData().getCurrentPage() == 1 ? null: response.body().getData().getCurrentPage() + 1
+                                        );
+                                    } else {
+                                        callback.onResult(response.body().getData().getChatMessages(), null,null);
+                                    }
                                 }
                             }
 

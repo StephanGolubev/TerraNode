@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,7 +53,7 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
     NestedScrollView defaultScrollView;
 
     private Unbinder unbinder;
-    private UsersAdapter structureAdapter;
+    private UsersPagedAdapter structureAdapter;
     private UsersAdapter searchAdapter;
     private ChatsAdapter chatsAdapter;
 
@@ -97,7 +98,7 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
         });
 
         structureRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        structureAdapter = new UsersAdapter();
+        structureAdapter = new UsersPagedAdapter(user -> ((MainActivity) getActivity()).showChatActivityByUserId(user.getId(), user.getName()));
         structureRecyclerView.setAdapter(structureAdapter);
 
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -125,8 +126,8 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
     }
 
     @Override
-    public void showStructure(List<User> usersList) {
-        structureAdapter.setUserList(usersList, user -> ((MainActivity) getActivity()).showChatActivityByUserId(user.getId(), user.getName()));
+    public void showStructure(PagedList<User> usersList) {
+        structureAdapter.submitList(usersList);
     }
 
     @Override
@@ -152,6 +153,7 @@ public class SupportFragment extends MvpAppCompatFragment implements SupportView
 
     @Override
     public void onDestroy() {
+        unbinder.unbind();
         presenter.destroy();
         super.onDestroy();
     }

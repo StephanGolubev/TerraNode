@@ -58,6 +58,10 @@ public interface NetworkRepository {
     @Headers("Accept: application/json")
     Maybe<Response<SuccessStructureResponce>> getStructure(@Header("Authorization") String token);
 
+    @GET("api/v1/structure")
+    @Headers("Accept: application/json")
+    Call<SuccessStructureResponce> getPagedStructure(@Header("Authorization") String token, @Query("page") long page);
+
     @POST("api/v1/search/users")
     Maybe<SuccessSearchResponce> searchUsers(@Header("Authorization")String token, @Query("search_term") String searchTerm);
 
@@ -76,4 +80,5 @@ public interface NetworkRepository {
 
     @GET("/api/v1/chat/{chatId}/message")
     Call<SuccessGetMessageFromChatResponse> getPagedMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("page") long page);
+
 }
