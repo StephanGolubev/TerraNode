@@ -10,9 +10,6 @@ import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +19,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
     private NetworkRepository networkRepository;
     private PrefsHelper prefsHelper;
 
-    public NewsDataSource(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
+    NewsDataSource(NetworkRepository networkRepository, PrefsHelper prefsHelper) {
         this.networkRepository = networkRepository;
         this.prefsHelper = prefsHelper;
     }
@@ -39,8 +36,6 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
                             public void onResponse(@NotNull Call<SuccessNewsResponse> call, @NotNull Response<SuccessNewsResponse> response) {
                                 if (response.body() != null) {
                                     callback.onResult(response.body().getData().getNewsItems(),
-                                            response.body().getData().getCurrentPage(),//position
-                                            response.body().getData().getTotal(),//totalCount
                                             null,
                                             response.body().getData().getCurrentPage() == 1 ? null: response.body().getData().getCurrentPage() + 1
                                     );
@@ -49,7 +44,6 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
 
                             @Override
                             public void onFailure(@NotNull Call<SuccessNewsResponse> call, @NotNull Throwable t) {
-                                callback.onError(t);
                             }
                         }
                 );
@@ -76,7 +70,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, NewsItem> {
 
                                 @Override
                                 public void onFailure(@NotNull Call<SuccessNewsResponse> call, @NotNull Throwable t) {
-                                    callback.onError(t);
+//                                    callback.onError(t);
                                 }
                         }
                 );

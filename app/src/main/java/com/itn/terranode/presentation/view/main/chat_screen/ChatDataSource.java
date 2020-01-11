@@ -1,16 +1,11 @@
 package com.itn.terranode.presentation.view.main.chat_screen;
 
 import androidx.annotation.NonNull;
-import androidx.paging.DataSource;
-import androidx.paging.ItemKeyedDataSource;
 import androidx.paging.PageKeyedDataSource;
 
 import com.itn.terranode.data.network.NetworkRepository;
-import com.itn.terranode.data.network.dtos.Chat;
 import com.itn.terranode.data.network.dtos.ChatMessage;
-import com.itn.terranode.data.network.dtos.InformationAboutMessages;
-import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponce;
-import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
+import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponse;
 import com.itn.terranode.data.shared_prefs.PrefsHelper;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,13 +33,11 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
         networkRepository
                 .getPagedMessageFromChat(token, chatId, 1)
                 .enqueue(
-                        new Callback<SuccessGetMessageFromChatResponce>() {
+                        new Callback<SuccessGetMessageFromChatResponse>() {
                             @Override
-                            public void onResponse(@NotNull Call<SuccessGetMessageFromChatResponce> call, @NotNull Response<SuccessGetMessageFromChatResponce> response) {
+                            public void onResponse(@NotNull Call<SuccessGetMessageFromChatResponse> call, @NotNull Response<SuccessGetMessageFromChatResponse> response) {
                                 if (response.body() != null) {
                                     callback.onResult(response.body().getData().getChatMessages(),
-                                            response.body().getData().getCurrentPage(),//position
-                                            response.body().getData().getTotal(),//totalCount
                                             null,
                                             response.body().getData().getCurrentPage() == 1 ? null: response.body().getData().getCurrentPage() + 1
                                     );
@@ -52,8 +45,8 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
                             }
 
                             @Override
-                            public void onFailure(@NotNull Call<SuccessGetMessageFromChatResponce> call, @NotNull Throwable t) {
-                                callback.onError(t);
+                            public void onFailure(@NotNull Call<SuccessGetMessageFromChatResponse> call, @NotNull Throwable t) {
+//                                callback.onError(t);
                             }
                         }
                 );
@@ -70,17 +63,17 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
         networkRepository
                 .getPagedMessageFromChat(token, chatId, params.key)
                 .enqueue(
-                        new Callback<SuccessGetMessageFromChatResponce>() {
+                        new Callback<SuccessGetMessageFromChatResponse>() {
                             @Override
-                            public void onResponse(@NotNull Call<SuccessGetMessageFromChatResponce> call, @NotNull Response<SuccessGetMessageFromChatResponce> response) {
+                            public void onResponse(@NotNull Call<SuccessGetMessageFromChatResponse> call, @NotNull Response<SuccessGetMessageFromChatResponse> response) {
                                 if (response.body() != null) {
                                     callback.onResult(response.body().getData().getChatMessages(), params.key + 1);
                                 }
                             }
 
                             @Override
-                            public void onFailure(@NotNull Call<SuccessGetMessageFromChatResponce> call, @NotNull Throwable t) {
-                                callback.onError(t);
+                            public void onFailure(@NotNull Call<SuccessGetMessageFromChatResponse> call, @NotNull Throwable t) {
+//                                callback.onError(t);
                             }
                         }
                 );

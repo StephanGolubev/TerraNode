@@ -42,8 +42,6 @@ public class ChatInteractorImpl implements ChatInteractor {
         this.chatId = chatId;
         ChatDataSourceFactory chatDataSourceFactory = new ChatDataSourceFactory(networkRepository, prefsHelper, chatId);
         PagedList.Config config = (new PagedList.Config.Builder())
-                .setEnablePlaceholders(false)
-                .setPageSize(20)
                 .build();
         return new RxPagedListBuilder(chatDataSourceFactory, config)
                 .buildObservable();

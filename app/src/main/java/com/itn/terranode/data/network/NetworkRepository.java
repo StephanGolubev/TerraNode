@@ -4,7 +4,7 @@ import com.itn.terranode.data.network.dtos.LoginDTO;
 import com.itn.terranode.data.network.dtos.NewAccountDTO;
 import com.itn.terranode.data.network.dtos.SuccessChatsResponce;
 import com.itn.terranode.data.network.dtos.SuccessCreateChatResponce;
-import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponce;
+import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponse;
 import com.itn.terranode.data.network.dtos.SuccessLogoutResponse;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
@@ -72,8 +72,8 @@ public interface NetworkRepository {
     Maybe<Response<Void>> addMessageToChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("message") String messageString);
 
     @GET("/api/v1/chat/{chatId}/message")
-    Maybe<Response<SuccessGetMessageFromChatResponce>> getMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id);
+    Maybe<Response<SuccessGetMessageFromChatResponse>> getMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id);
 
     @GET("/api/v1/chat/{chatId}/message")
-    Call<SuccessGetMessageFromChatResponce> getPagedMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("page") long page);
+    Call<SuccessGetMessageFromChatResponse> getPagedMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("page") long page);
 }

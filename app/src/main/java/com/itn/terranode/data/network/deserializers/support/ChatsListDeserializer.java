@@ -15,7 +15,7 @@ import com.itn.terranode.data.network.dtos.SuccessStructureResponce;
 
 import java.lang.reflect.Type;
 
-public class ChatsDeserializer implements JsonDeserializer<SuccessChatsResponce> {
+public class ChatsListDeserializer implements JsonDeserializer<SuccessChatsResponce> {
 
     @Override
     public SuccessChatsResponce deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -5,12 +5,9 @@ import androidx.paging.PagedList;
 import com.google.gson.Gson;
 import com.itn.terranode.data.network.dtos.ChatMessage;
 import com.itn.terranode.data.network.dtos.DetailMessageErrorResponse;
-import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponce;
 import com.itn.terranode.di.app.App;
 import com.itn.terranode.domain.main.chat_screen.ChatInteractor;
 import com.itn.terranode.presentation.view.main.chat_screen.ChatView;
-
-import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -18,7 +15,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 @InjectViewState
 public class ChatPresenter extends MvpPresenter<ChatView> {
@@ -55,7 +51,6 @@ public class ChatPresenter extends MvpPresenter<ChatView> {
                 interactor
                         .getPagedMessages(chatId)
                         .doOnSubscribe(disposable -> getViewState().showProgressBar())
-                        .doAfterTerminate(() -> getViewState().hideProgressBar())
                         .subscribe(
                                 this::showResult,
                                 throwable -> showMessage(throwable.getMessage())
@@ -93,6 +88,7 @@ public class ChatPresenter extends MvpPresenter<ChatView> {
     }
 
     private void showResult(PagedList<ChatMessage> response) {
+        getViewState().hideProgressBar();
         getViewState().showChat(response, interactor.getCurrentId());
     }
 
