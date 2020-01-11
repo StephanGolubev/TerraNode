@@ -42,7 +42,7 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
                                                 response.body().getData().getFrom() - 1,//position
                                                 response.body().getData().getTotal(),//totalCount
                                                 null,
-                                                response.body().getData().getCurrentPage() == 1 ? null: response.body().getData().getCurrentPage() + 1
+                                                response.body().getData().getLastPage() == 1 ? null : response.body().getData().getCurrentPage() + 1
                                         );
                                     } else {
                                         callback.onResult(response.body().getData().getChatMessages(), null,null);
@@ -52,7 +52,6 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
 
                             @Override
                             public void onFailure(@NotNull Call<SuccessGetMessageFromChatResponse> call, @NotNull Throwable t) {
-//                                callback.onError(t);
                             }
                         }
                 );

@@ -40,7 +40,7 @@ class StructureDataSource extends PageKeyedDataSource<Integer, User> {
                                                 response.body().getData().getFrom() - 1,//position
                                                 response.body().getData().getTotal(),//totalCount
                                                 null,
-                                                response.body().getData().getCurrentPage() == 1 ? null : response.body().getData().getCurrentPage() + 1
+                                                response.body().getData().getLastPage() == 1 ? null : response.body().getData().getCurrentPage() + 1
                                         );
                                     } else {
                                         callback.onResult(response.body().getData().getUsers(), null,null);
@@ -50,7 +50,6 @@ class StructureDataSource extends PageKeyedDataSource<Integer, User> {
 
                             @Override
                             public void onFailure(@NotNull Call<SuccessStructureResponce> call, @NotNull Throwable t) {
-
                             }
                         }
                 );

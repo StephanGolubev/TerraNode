@@ -40,8 +40,6 @@ public class SupportInteractorImpl implements SupportInteractor {
     public Observable<PagedList<User>> getStructure() {
         StructureDataSourceFactory dataSourceFactory = new StructureDataSourceFactory(networkRepository, prefsHelper);
         PagedList.Config config = (new PagedList.Config.Builder())
-                .setEnablePlaceholders(false)
-                .setPageSize(5)
                 .build();
         return new RxPagedListBuilder(dataSourceFactory, config)
                 .buildObservable();
