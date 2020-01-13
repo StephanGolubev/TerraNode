@@ -78,7 +78,7 @@ class ChatDataSource extends PageKeyedDataSource<Integer, ChatMessage> {
 
                             @Override
                             public void onFailure(@NotNull Call<SuccessGetMessageFromChatResponse> call, @NotNull Throwable t) {
-//                                callback.onError(t);
+                                //  если не загрузилось - значит не загрузилось
                             }
                         }
                 );

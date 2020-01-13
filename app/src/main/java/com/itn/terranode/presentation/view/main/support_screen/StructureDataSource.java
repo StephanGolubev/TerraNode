@@ -76,7 +76,7 @@ class StructureDataSource extends PageKeyedDataSource<Integer, User> {
 
                             @Override
                             public void onFailure(@NotNull Call<SuccessStructureResponce> call, @NotNull Throwable t) {
-//                                    callback.onError(t);
+                                //  если не загрузилось - значит не загрузилось
                             }
                         }
                 );
