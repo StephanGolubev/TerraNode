@@ -8,48 +8,40 @@ import java.util.List;
 public class InformationAboutStructure {
 
     @SerializedName("current_page")
-    private String currentPage;
+    private int currentPage;
 
     @SerializedName("data")
     private List<User> users = new ArrayList<>();
 
     @SerializedName("first_page_url")
-    private String first_page_url;
+    private String firstPageUrl;
 
     @SerializedName("from")
-    private String from;
+    private int from;
 
     @SerializedName("last_page")
-    private String last_page;
+    private int lastPage;
 
     @SerializedName("last_page_url")
-    private String last_page_url;
+    private String lastPageUrl;
 
     @SerializedName("next_page_url")
-    private String next_page_url;
+    private String nextPageUrl;
 
     @SerializedName("path")
     private String path;
 
     @SerializedName("per_page")
-    private String per_page;
+    private int perPage;
 
     @SerializedName("prev_page_url")
-    private String prev_page_url;
+    private String prevPageUrl;
 
     @SerializedName("to")
-    private String to;
+    private int to;
 
     @SerializedName("total")
-    private String total;
-
-    public String getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(String currentPage) {
-        this.currentPage = currentPage;
-    }
+    private int total;
 
     public List<User> getUsers() {
         return users;
@@ -59,44 +51,52 @@ public class InformationAboutStructure {
         this.users = users;
     }
 
-    public String getFirst_page_url() {
-        return first_page_url;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
-    public void setFirst_page_url(String first_page_url) {
-        this.first_page_url = first_page_url;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
-    public String getFrom() {
+    public String getFirstPageUrl() {
+        return firstPageUrl;
+    }
+
+    public void setFirstPageUrl(String firstPageUrl) {
+        this.firstPageUrl = firstPageUrl;
+    }
+
+    public int getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(int from) {
         this.from = from;
     }
 
-    public String getLast_page() {
-        return last_page;
+    public int getLastPage() {
+        return lastPage;
     }
 
-    public void setLast_page(String last_page) {
-        this.last_page = last_page;
+    public void setLastPage(int lastPage) {
+        this.lastPage = lastPage;
     }
 
-    public String getLast_page_url() {
-        return last_page_url;
+    public String getLastPageUrl() {
+        return lastPageUrl;
     }
 
-    public void setLast_page_url(String last_page_url) {
-        this.last_page_url = last_page_url;
+    public void setLastPageUrl(String lastPageUrl) {
+        this.lastPageUrl = lastPageUrl;
     }
 
-    public String getNext_page_url() {
-        return next_page_url;
+    public String getNextPageUrl() {
+        return nextPageUrl;
     }
 
-    public void setNext_page_url(String next_page_url) {
-        this.next_page_url = next_page_url;
+    public void setNextPageUrl(String nextPageUrl) {
+        this.nextPageUrl = nextPageUrl;
     }
 
     public String getPath() {
@@ -107,35 +107,35 @@ public class InformationAboutStructure {
         this.path = path;
     }
 
-    public String getPer_page() {
-        return per_page;
+    public int getPerPage() {
+        return perPage;
     }
 
-    public void setPer_page(String per_page) {
-        this.per_page = per_page;
+    public void setPerPage(int perPage) {
+        this.perPage = perPage;
     }
 
-    public String getPrev_page_url() {
-        return prev_page_url;
+    public String getPrevPageUrl() {
+        return prevPageUrl;
     }
 
-    public void setPrev_page_url(String prev_page_url) {
-        this.prev_page_url = prev_page_url;
+    public void setPrevPageUrl(String prevPageUrl) {
+        this.prevPageUrl = prevPageUrl;
     }
 
-    public String getTo() {
+    public int getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(int to) {
         this.to = to;
     }
 
-    public String getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 }

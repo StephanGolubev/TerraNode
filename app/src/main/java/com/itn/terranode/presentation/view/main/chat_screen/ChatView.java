@@ -1,5 +1,7 @@
 package com.itn.terranode.presentation.view.main.chat_screen;
 
+import androidx.paging.PagedList;
+
 import com.itn.terranode.data.network.dtos.Chat;
 import com.itn.terranode.data.network.dtos.ChatMessage;
 import com.itn.terranode.data.network.dtos.User;
@@ -13,7 +15,7 @@ import moxy.viewstate.strategy.StateStrategyType;
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface ChatView extends MvpView {
 
-    void showChat(List<ChatMessage> chatsList, String currentId);
+    void showChat(PagedList<ChatMessage> chatsList, String currentId);
 
     void showProgressBar();
 

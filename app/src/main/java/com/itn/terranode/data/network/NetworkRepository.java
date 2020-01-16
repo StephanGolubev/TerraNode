@@ -4,7 +4,7 @@ import com.itn.terranode.data.network.dtos.LoginDTO;
 import com.itn.terranode.data.network.dtos.NewAccountDTO;
 import com.itn.terranode.data.network.dtos.SuccessChatsResponce;
 import com.itn.terranode.data.network.dtos.SuccessCreateChatResponce;
-import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponce;
+import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponse;
 import com.itn.terranode.data.network.dtos.SuccessLogoutResponse;
 import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
 import com.itn.terranode.data.network.dtos.SuccessOfficeResponse;
@@ -13,6 +13,7 @@ import com.itn.terranode.data.network.dtos.SuccessSearchResponce;
 import com.itn.terranode.data.network.dtos.SuccessStructureResponce;
 
 import io.reactivex.Maybe;
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -45,6 +46,10 @@ public interface NetworkRepository {
     @Headers("Accept: application/json")
     Maybe<Response<SuccessNewsResponse>> getNews(@Header("Authorization") String token);
 
+    @GET("/api/v1/news")
+    @Headers("Accept: application/json")
+    Call<SuccessNewsResponse> getPagedNews(@Header("Authorization") String token, @Query("page") long page);
+
     @GET("/api/v1/products")
     @Headers("Accept: application/json")
     Maybe<Response<SuccessProductsResponse>> getProducts(@Header("Authorization") String token);
@@ -52,6 +57,10 @@ public interface NetworkRepository {
     @GET("api/v1/structure")
     @Headers("Accept: application/json")
     Maybe<Response<SuccessStructureResponce>> getStructure(@Header("Authorization") String token);
+
+    @GET("api/v1/structure")
+    @Headers("Accept: application/json")
+    Call<SuccessStructureResponce> getPagedStructure(@Header("Authorization") String token, @Query("page") long page);
 
     @POST("api/v1/search/users")
     Maybe<SuccessSearchResponce> searchUsers(@Header("Authorization")String token, @Query("search_term") String searchTerm);
@@ -67,5 +76,9 @@ public interface NetworkRepository {
     Maybe<Response<Void>> addMessageToChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("message") String messageString);
 
     @GET("/api/v1/chat/{chatId}/message")
-    Maybe<Response<SuccessGetMessageFromChatResponce>> getMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id);
+    Maybe<Response<SuccessGetMessageFromChatResponse>> getMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id);
+
+    @GET("/api/v1/chat/{chatId}/message")
+    Call<SuccessGetMessageFromChatResponse> getPagedMessageFromChat(@Header("Authorization")String token, @Path ("chatId") String id, @Query("page") long page);
+
 }

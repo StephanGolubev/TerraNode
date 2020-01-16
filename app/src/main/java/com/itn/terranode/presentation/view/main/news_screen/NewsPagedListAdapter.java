@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itn.terranode.R;
@@ -15,22 +17,32 @@ import com.itn.terranode.data.network.dtos.NewsItem;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
+public class NewsPagedListAdapter extends PagedListAdapter<NewsItem, NewsPagedListAdapter.NewsViewHolder> {
 
-    private List<NewsItem> newsItems = new ArrayList<>();
-    private OnItemClickListiner listiner;
+    private NewsPagedListAdapter.OnItemClickListiner listiner;
 
-    void setNews(List<NewsItem> newsItems, OnItemClickListiner listiner){
-        this.newsItems.clear();
-        this.newsItems.addAll(newsItems);
+    public interface OnItemClickListiner{
+        void onItemClick(NewsItem newsItem);
+    }
+
+    private static final DiffUtil.ItemCallback<NewsItem> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewsItem>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull NewsItem oldItem, @NonNull NewsItem newItem) {
+            return oldItem.getTitle() == newItem.getTitle();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull NewsItem oldItem, @NonNull NewsItem newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
+
+    NewsPagedListAdapter(NewsPagedListAdapter.OnItemClickListiner listiner) {
+        super(DIFF_CALLBACK);
         this.listiner = listiner;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -42,16 +54,10 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        holder.bind(newsItems.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return newsItems.size();
-    }
-
-    public interface OnItemClickListiner{
-        void onItemClick(NewsItem newsItem);
+        NewsItem item = getItem(position);
+        if(item != null){
+            holder.bind(item);
+        }
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder {

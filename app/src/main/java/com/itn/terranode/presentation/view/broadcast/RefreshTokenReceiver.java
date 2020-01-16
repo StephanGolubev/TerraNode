@@ -43,13 +43,12 @@ public class RefreshTokenReceiver extends BroadcastReceiver {
                                 clearAll(context);
                             }
                         },
-                        throwable -> {
-
-                        },
+                        throwable -> clearAll(context),
                         () -> {
 
                         }
                 );
+        compositeDisposable.add(disposable);
     }
 
     private void clearAll(Context context) {
@@ -61,14 +60,14 @@ public class RefreshTokenReceiver extends BroadcastReceiver {
         compositeDisposable.add(interactor.saveToken(accessToken).subscribe(() -> {}, throwable -> {}));
     }
 
-    public static void setAlarm(Context context, int sec){
+    public static void setAlarm(Context context, int min){
         Calendar cal = Calendar.getInstance();
 
         cal.add(Calendar.MONTH,0);
         cal.set(Calendar.DATE, 0);
         cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, sec);
+        cal.set(Calendar.MINUTE, min);
+        cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long intervalInMillis = cal.getTimeInMillis();
         //получаем алармМенеджер

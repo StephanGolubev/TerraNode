@@ -1,10 +1,12 @@
 package com.itn.terranode.domain.main.news_screen;
 
-import com.itn.terranode.data.network.dtos.SuccessNewsResponse;
+import androidx.paging.PagedList;
 
-import io.reactivex.Maybe;
-import retrofit2.Response;
+import com.itn.terranode.data.network.dtos.NewsItem;
+
+import io.reactivex.Observable;
 
 public interface NewsInteractor {
-    Maybe<Response<SuccessNewsResponse>> getNews();
+
+    Observable<PagedList<NewsItem>> getPagedNews();
 }

@@ -1,16 +1,18 @@
 package com.itn.terranode.domain.main.chat_screen;
 
-import com.itn.terranode.data.network.dtos.SuccessGetMessageFromChatResponce;
+import androidx.paging.PagedList;
+
+import com.itn.terranode.data.network.dtos.ChatMessage;
 
 import io.reactivex.Maybe;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.Observable;
 import retrofit2.Response;
 
 public interface ChatInteractor {
 
-    Maybe<Response<SuccessGetMessageFromChatResponce>>  createChat(String userId);
+    Observable<PagedList<ChatMessage>>  createChat(String userId);
 
-    Maybe<Response<SuccessGetMessageFromChatResponce>>  getMessages(String chatId);
+    Observable<PagedList<ChatMessage>> getPagedMessages(String chatId);
 
     String getCurrentId();
 

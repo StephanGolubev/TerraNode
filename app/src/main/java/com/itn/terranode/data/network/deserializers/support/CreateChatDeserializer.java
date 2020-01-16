@@ -13,7 +13,7 @@ import com.itn.terranode.data.network.dtos.SuccessCreateChatResponce;
 
 import java.lang.reflect.Type;
 
-public class ChatDeserializer implements JsonDeserializer<SuccessCreateChatResponce> {
+public class CreateChatDeserializer implements JsonDeserializer<SuccessCreateChatResponce> {
 
     @Override
     public SuccessCreateChatResponce deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

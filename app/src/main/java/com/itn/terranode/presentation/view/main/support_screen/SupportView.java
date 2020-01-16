@@ -1,5 +1,7 @@
 package com.itn.terranode.presentation.view.main.support_screen;
 
+import androidx.paging.PagedList;
+
 import com.itn.terranode.data.network.dtos.Chat;
 import com.itn.terranode.data.network.dtos.User;
 
@@ -14,7 +16,7 @@ public interface SupportView extends MvpView {
 
     void showChats(List<Chat> chatsList);
 
-    void showStructure(List<User> usersList);
+    void showStructure(PagedList<User> usersList);
 
     void showSearchResult(List<User> usersList);
 

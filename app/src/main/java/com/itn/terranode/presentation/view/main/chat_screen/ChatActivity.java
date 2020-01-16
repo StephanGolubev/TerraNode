@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -15,8 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.itn.terranode.R;
 import com.itn.terranode.data.network.dtos.ChatMessage;
 import com.itn.terranode.presentation.presenter.main.chat_screen.ChatPresenter;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +42,7 @@ public class ChatActivity extends MvpAppCompatActivity implements ChatView {
 
 
     private Unbinder unbinder;
-    private ChatAdapter adapter;
+    private ChatPagedListAdapter adapter;
     private LinearLayoutManager manager;
     private String userName = "";
 
@@ -61,7 +60,7 @@ public class ChatActivity extends MvpAppCompatActivity implements ChatView {
         manager.setReverseLayout(true);
         manager.scrollToPosition(0);
         recyclerView.setLayoutManager(manager);
-        adapter = new ChatAdapter();
+        adapter = new ChatPagedListAdapter();
         recyclerView.setAdapter(adapter);
         getMessages();
 
@@ -89,8 +88,10 @@ public class ChatActivity extends MvpAppCompatActivity implements ChatView {
     }
 
     @Override
-    public void showChat(List<ChatMessage> chatsList, String currentId) {
-        adapter.setChatMessageList(chatsList, currentId, userName);
+    public void showChat(PagedList<ChatMessage> chatsList, String currentId) {
+
+        adapter.setChatMessageList(currentId, userName);
+        adapter.submitList(chatsList);
         manager.scrollToPosition(0);
     }
 
